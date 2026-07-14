@@ -3,505 +3,339 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ninety-One Consulting — โครงสร้างพื้นฐานไอทีที่ธุรกิจคุณวางใจได้</title>
+<title>Ninety-One Consulting — โครงสร้างพื้นฐานไอทีและคลาวด์ระดับองค์กร</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#0A1628;
-    --navy:#122A4A;
-    --navy-2:#0E2038;
-    --line:#4A7FB5;
-    --line-soft:rgba(143,184,224,.35);
-    --paper:#F1F4F6;
-    --paper-2:#E7ECEF;
-    --text:#16233A;
-    --slate:#5A6B85;
-    --amber:#E85D1F;
-    --amber-dim:#B8460F;
-    --led:#4CD787;
-    --radius:2px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:'IBM Plex Sans Thai','Space Grotesk',sans-serif;
-    background:var(--paper);
-    color:var(--text);
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-  .mono{font-family:'IBM Plex Mono',monospace;}
-  .display{font-family:'Space Grotesk','IBM Plex Sans Thai',sans-serif;}
+:root{
+  --void:#060911;
+  --panel:#0B1220;
+  --panel-2:#111A2E;
+  --panel-3:#16213A;
+  --cyan:#35E7FF;
+  --cyan-dim:#1CA8C4;
+  --violet:#8B7BFF;
+  --text:#EAF1FB;
+  --muted:#8592AD;
+  --muted-2:#5C6884;
+  --line:rgba(133,152,196,.16);
+  --line-2:rgba(133,152,196,.28);
+  --good:#34F5A6;
+  --radius:3px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'IBM Plex Sans Thai','Chakra Petch',sans-serif;
+  background:var(--void);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+img,svg{display:block;max-width:100%;}
+.mono{font-family:'JetBrains Mono',monospace;}
+.disp{font-family:'Chakra Petch',sans-serif;}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}
+}
 
-  a{color:inherit;text-decoration:none;}
-  ul{list-style:none;}
-  img,svg{display:block;max-width:100%;}
+/* ---------- utility panel frame ---------- */
+.hud{position:relative;border:1px solid var(--line-2);background:var(--panel);}
+.hud::before,.hud::after{
+  content:"";position:absolute;width:10px;height:10px;
+  border:1.5px solid var(--cyan);opacity:.7;pointer-events:none;
+}
+.hud::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+.hud::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
 
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
-  }
+/* ---------- NAV ---------- */
+header.site{
+  position:sticky;top:0;z-index:200;
+  background:rgba(6,9,17,.86);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav-wrap{max-width:1280px;margin:0 auto;padding:0 28px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;align-items:center;gap:11px;}
+.brand-mark{
+  width:34px;height:34px;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-weight:600;font-size:13px;color:var(--cyan);
+  border:1px solid var(--cyan);flex:none;
+  box-shadow:0 0 14px rgba(53,231,255,.25) inset, 0 0 10px rgba(53,231,255,.15);
+}
+.brand-name b{display:block;font-family:'Chakra Petch',sans-serif;font-size:15px;font-weight:600;letter-spacing:.01em;}
+.brand-name span{display:block;font-size:10.5px;color:var(--muted-2);font-family:'JetBrains Mono',monospace;letter-spacing:.1em;}
+nav.main-nav{display:flex;align-items:center;gap:2px;}
+nav.main-nav a{color:#B9C4DC;font-size:13.5px;padding:9px 14px;border-radius:var(--radius);transition:color .2s,background .2s;}
+nav.main-nav a:hover{color:#fff;background:rgba(53,231,255,.08);}
+.nav-item{position:relative;}
+.nav-item.has-dropdown{display:flex;align-items:center;}
+.dropdown-menu{
+  position:absolute;top:100%;left:0;min-width:200px;background:var(--panel-2);
+  border:1px solid var(--line-2);padding:6px;display:none;flex-direction:column;gap:2px;
+  box-shadow:0 20px 40px rgba(0,0,0,.5);z-index:50;
+}
+.nav-item.has-dropdown:hover .dropdown-menu,.nav-item.has-dropdown:focus-within .dropdown-menu{display:flex;}
+.dropdown-menu a{padding:10px 12px;font-size:13px;white-space:nowrap;border-radius:var(--radius);}
+.dropdown-menu a:hover{background:rgba(53,231,255,.1);}
+.nav-cta{
+  font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.03em;
+  border:1px solid var(--cyan);color:var(--cyan) !important;padding:8px 15px !important;
+}
+.nav-cta:hover{background:var(--cyan) !important;color:var(--void) !important;box-shadow:0 0 20px rgba(53,231,255,.4);}
+.nav-toggle{display:none;background:none;border:1px solid var(--line-2);width:38px;height:38px;color:var(--text);font-size:17px;cursor:pointer;}
 
-  /* ---------- corner ticks (blueprint frame) ---------- */
-  .frame{position:relative;}
-  .frame::before,.frame::after{
-    content:"";position:absolute;width:14px;height:14px;
-    border:1.5px solid var(--line-soft);
-    pointer-events:none;
-  }
-  .frame::before{top:10px;left:10px;border-right:none;border-bottom:none;}
-  .frame::after{bottom:10px;right:10px;border-left:none;border-top:none;}
+/* ---------- HERO ---------- */
+.hero{position:relative;padding:100px 28px 72px;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;z-index:0;}
+.hero-bg::before{
+  content:"";position:absolute;inset:0;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:46px 46px;mask-image:radial-gradient(ellipse 70% 60% at 50% 20%,#000 20%,transparent 75%);
+}
+.glow-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;}
+.glow-orb.c{width:420px;height:420px;background:var(--cyan);top:-140px;left:8%;}
+.glow-orb.v{width:380px;height:380px;background:var(--violet);top:-40px;right:6%;opacity:.28;}
+.hero-inner{max-width:1280px;margin:0 auto;position:relative;z-index:2;}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);
+  letter-spacing:.15em;text-transform:uppercase;display:inline-flex;align-items:center;gap:9px;
+  margin-bottom:24px;padding:6px 12px 6px 8px;border:1px solid var(--line-2);border-radius:20px;
+}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--good);box-shadow:0 0 8px var(--good);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+h1.hero-title{
+  font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:clamp(32px,4.8vw,58px);
+  line-height:1.1;letter-spacing:-.01em;max-width:840px;
+}
+h1.hero-title .grad{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hero-sub{margin-top:22px;max-width:600px;font-size:16.5px;line-height:1.75;color:var(--muted);font-weight:300;}
+.hero-cta-row{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:14px 26px;font-size:14.5px;font-weight:500;border-radius:var(--radius);cursor:pointer;border:1px solid transparent;transition:transform .15s,box-shadow .2s,background .2s,border-color .2s,color .2s;font-family:'IBM Plex Sans Thai',sans-serif;}
+.btn:active{transform:translateY(1px);}
+.btn-primary{background:linear-gradient(90deg,var(--cyan),var(--violet));color:#04131A;font-weight:600;}
+.btn-primary:hover{box-shadow:0 0 26px rgba(53,231,255,.4);}
+.btn-ghost{border-color:var(--line-2);color:var(--text);}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
 
-  /* ---------- NAV ---------- */
-  header.site{
-    position:sticky;top:0;z-index:100;
-    background:rgba(10,22,40,.92);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid rgba(143,184,224,.18);
-  }
-  .nav-wrap{
-    max-width:1240px;margin:0 auto;padding:0 28px;
-    display:flex;align-items:center;justify-content:space-between;
-    height:72px;
-  }
-  .brand{display:flex;align-items:center;gap:10px;}
-  .brand-mark{
-    width:36px;height:36px;border:1.5px solid var(--amber);
-    display:flex;align-items:center;justify-content:center;
-    font-family:'IBM Plex Mono',monospace;font-weight:500;color:var(--amber);
-    font-size:13px;letter-spacing:0.5px;flex:none;
-  }
-  .brand-name{color:#EAF0F7;font-size:15px;letter-spacing:.03em;line-height:1.2;}
-  .brand-name b{display:block;font-weight:600;}
-  .brand-name span{display:block;font-size:11px;color:var(--line-soft);font-family:'IBM Plex Mono',monospace;letter-spacing:.08em;}
+/* status readout strip */
+.readout{margin-top:64px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+.readout-item{background:var(--panel);padding:20px 22px;}
+.readout-item b{display:block;font-family:'Chakra Petch',sans-serif;font-size:26px;font-weight:600;color:#fff;}
+.readout-item span{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted-2);letter-spacing:.06em;}
 
-  nav.main-nav{display:flex;gap:2px;}
-  nav.main-nav a{
-    color:#C7D4E4;font-size:14px;padding:10px 16px;
-    border-radius:var(--radius);transition:color .2s, background .2s;
-    font-weight:400;
-  }
-  nav.main-nav a:hover{color:#fff;background:rgba(143,184,224,.1);}
-  .nav-item{position:relative;}
-  .nav-item.has-dropdown{display:flex;align-items:center;}
-  .dropdown-menu{
-    position:absolute;top:100%;left:0;min-width:200px;
-    background:var(--navy-2);border:1px solid rgba(143,184,224,.18);
-    padding:6px;display:none;flex-direction:column;gap:2px;
-    box-shadow:0 12px 24px rgba(0,0,0,.35);z-index:50;
-  }
-  .nav-item.has-dropdown:hover .dropdown-menu,
-  .nav-item.has-dropdown:focus-within .dropdown-menu{display:flex;}
-  .dropdown-menu a{
-    padding:10px 14px;font-size:13.5px;color:#C7D4E4;
-    border-radius:var(--radius);white-space:nowrap;
-  }
-  .dropdown-menu a:hover{color:#fff;background:rgba(143,184,224,.12);}
-  .nav-cta{
-    border:1px solid var(--amber);color:var(--amber) !important;
-    font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.03em;
-    padding:9px 16px !important;
-  }
-  .nav-cta:hover{background:var(--amber) !important;color:var(--ink) !important;}
-  .nav-toggle{display:none;background:none;border:1px solid var(--line-soft);width:40px;height:40px;color:#EAF0F7;font-size:18px;cursor:pointer;}
+/* ---------- SECTION SHARED ---------- */
+.section{max-width:1280px;margin:0 auto;padding:96px 28px;}
+.section-alt{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:52px;flex-wrap:wrap;}
+.eyebrow-sm{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--cyan);letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px;}
+h2.section-title{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:clamp(26px,3.2vw,38px);letter-spacing:-.01em;max-width:600px;}
+.section-note{max-width:400px;color:var(--muted);font-size:14.5px;line-height:1.7;}
 
-  /* ---------- HERO ---------- */
-  .hero{
-    position:relative;background:var(--ink);color:#EAF0F7;
-    padding:88px 28px 64px;
-    background-image:
-      linear-gradient(var(--line-soft) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px),
-      linear-gradient(rgba(10,22,40,.90), rgba(10,22,40,.93)),
-      url('https://www.moveupcloud.com/wp-content/uploads/2018/05/moveupcloud_datacenter-servers-2.jpg');
-    background-size:44px 44px, 44px 44px, cover, cover;
-    background-position:center top, center top, center, center;
-    background-repeat:repeat, repeat, no-repeat, no-repeat;
-  }
-  .hero::before{
-    content:"";position:absolute;inset:0;
-    background:radial-gradient(ellipse 70% 55% at 50% 20%, rgba(10,22,40,0) 0%, var(--ink) 78%);
-    pointer-events:none;
-  }
-  .hero-inner{max-width:1240px;margin:0 auto;position:relative;z-index:2;}
-  .eyebrow{
-    font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--amber);
-    letter-spacing:.14em;text-transform:uppercase;
-    display:flex;align-items:center;gap:10px;margin-bottom:22px;
-  }
-  .eyebrow::before{content:"";width:24px;height:1px;background:var(--amber);}
-  h1.hero-title{
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:600;
-    font-size:clamp(30px, 4.6vw, 54px);
-    line-height:1.12;letter-spacing:-.01em;
-    max-width:820px;color:#fff;
-  }
-  h1.hero-title .th{font-family:'IBM Plex Sans Thai',sans-serif;font-weight:600;}
-  .hero-sub{
-    margin-top:22px;max-width:600px;font-size:16.5px;line-height:1.75;
-    color:#B6C4D8;font-weight:300;
-  }
-  .hero-cta-row{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;}
-  .btn{
-    display:inline-flex;align-items:center;gap:10px;
-    padding:14px 26px;font-size:14.5px;font-weight:500;
-    border-radius:var(--radius);cursor:pointer;border:1px solid transparent;
-    transition:transform .15s ease, background .2s, border-color .2s, color .2s;
-  }
-  .btn:active{transform:translateY(1px);}
-  .btn-primary{background:var(--amber);color:var(--ink);}
-  .btn-primary:hover{background:#ffb75c;}
-  .btn-ghost{border-color:var(--line-soft);color:#EAF0F7;}
-  .btn-ghost:hover{border-color:#EAF0F7;}
+/* ---------- CALCULATOR (signature) ---------- */
+.calc-section{max-width:1280px;margin:0 auto;padding:88px 28px;position:relative;}
+.calc-shell{
+  border:1px solid var(--line-2);background:linear-gradient(160deg,var(--panel-2),var(--panel));
+  display:grid;grid-template-columns:1fr 1fr;overflow:hidden;position:relative;
+}
+.calc-shell::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));opacity:.5;height:2px;width:100%;top:0;
+}
+.calc-titlebar{
+  grid-column:1/-1;padding:16px 24px;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.02);
+}
+.calc-titlebar .t{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.06em;}
+.calc-dots{display:flex;gap:6px;}
+.calc-dots span{width:8px;height:8px;border-radius:50%;background:var(--line-2);}
+.calc-dots span:nth-child(1){background:#FF5F57;}
+.calc-dots span:nth-child(2){background:#FEBC2E;}
+.calc-dots span:nth-child(3){background:#28C840;}
+.calc-inputs{padding:32px;border-right:1px solid var(--line);}
+.calc-outputs{padding:32px;display:flex;flex-direction:column;gap:18px;}
+.calc-h{font-family:'Chakra Petch',sans-serif;font-size:20px;font-weight:600;margin-bottom:6px;}
+.calc-p{color:var(--muted);font-size:13.5px;line-height:1.6;margin-bottom:24px;}
+.field{margin-bottom:18px;}
+.field label{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;}
+.field input[type=number],.field select{
+  width:100%;background:var(--void);border:1px solid var(--line-2);color:var(--text);
+  padding:11px 13px;font-family:'JetBrains Mono',monospace;font-size:14px;border-radius:var(--radius);
+}
+.field input:focus,.field select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(53,231,255,.12);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.seg{display:flex;border:1px solid var(--line-2);border-radius:var(--radius);overflow:hidden;}
+.seg button{
+  flex:1;background:var(--void);color:var(--muted);border:none;padding:10px 8px;
+  font-family:'JetBrains Mono',monospace;font-size:12.5px;cursor:pointer;transition:background .2s,color .2s;
+}
+.seg button.active{background:linear-gradient(90deg,var(--cyan),var(--violet));color:#04131A;font-weight:600;}
+.readout-card{border:1px solid var(--line-2);background:var(--void);padding:20px 22px;}
+.readout-card .rl{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;}
+.readout-card .rv{font-family:'Chakra Petch',sans-serif;font-size:32px;font-weight:600;color:var(--cyan);line-height:1;}
+.readout-card .rv span{font-size:15px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-left:8px;}
+.readout-card .rd{margin-top:10px;font-size:12.5px;color:var(--muted-2);line-height:1.55;}
+.calc-note{
+  font-size:11.5px;color:var(--muted-2);line-height:1.7;font-family:'JetBrains Mono',monospace;
+  border-top:1px solid var(--line);padding-top:16px;margin-top:4px;
+}
+.calc-cta{margin-top:6px;}
 
-  /* schematic diagram */
-  .schematic{margin-top:72px;position:relative;}
-  .schematic svg{width:100%;height:auto;overflow:visible;}
-  .node-core{fill:var(--ink);stroke:var(--amber);stroke-width:1.5;}
-  .node-core-label{font-family:'IBM Plex Mono',monospace;font-size:13px;fill:var(--amber);}
-  .node-end{fill:var(--navy);stroke:var(--line);stroke-width:1;}
-  .node-line{
-    stroke:var(--line);stroke-width:1;fill:none;
-    stroke-dasharray:6 5;
-    stroke-dashoffset:400;
-    animation:dash 1.8s ease forwards;
-  }
-  .node-line.n2{animation-delay:.08s;}
-  .node-line.n3{animation-delay:.16s;}
-  .node-line.n4{animation-delay:.24s;}
-  .node-line.n5{animation-delay:.32s;}
-  .node-line.n6{animation-delay:.4s;}
-  @keyframes dash{to{stroke-dashoffset:0;}}
-  .end-label{font-family:'IBM Plex Mono',monospace;font-size:11.5px;fill:#B6C4D8;}
-  .end-dot{fill:var(--led);}
+/* ---------- SERVICES GRID ---------- */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px;}
+.filter-btn{
+  font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.03em;
+  padding:9px 16px;border:1px solid var(--line-2);border-radius:20px;color:var(--muted);
+  background:transparent;cursor:pointer;transition:all .2s;
+}
+.filter-btn.active,.filter-btn:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(53,231,255,.06);}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+.svc-card{background:var(--panel);padding:28px 26px;display:flex;flex-direction:column;transition:background .2s;}
+.svc-card:hover{background:var(--panel-2);}
+.svc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
+.svc-tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--cyan-dim);letter-spacing:.08em;}
+.svc-led{width:6px;height:6px;border-radius:50%;background:var(--good);box-shadow:0 0 6px var(--good);animation:pulse 2.4s ease-in-out infinite;}
+.svc-card h3{font-family:'Chakra Petch',sans-serif;font-size:18px;font-weight:600;margin-bottom:8px;line-height:1.3;}
+.svc-tagline{color:var(--cyan-dim);font-size:12.5px;font-weight:500;margin-bottom:12px;}
+.svc-desc{color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:14px;flex:1;}
+.svc-card details summary{
+  cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted-2);
+  letter-spacing:.05em;list-style:none;padding-top:10px;border-top:1px solid var(--line);
+}
+.svc-card details summary::-webkit-details-marker{display:none;}
+.svc-card details summary::after{content:" +";color:var(--cyan);}
+.svc-card details[open] summary::after{content:" −";}
+.svc-list{margin-top:12px;display:flex;flex-direction:column;gap:7px;}
+.svc-list li{font-size:12.5px;color:#C7D0E4;line-height:1.5;padding-left:14px;position:relative;}
+.svc-list li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:1px;background:var(--cyan-dim);}
+.tier-table-wrap{overflow-x:auto;margin-top:16px;border:1px solid var(--line-2);}
+.tier-table{width:100%;min-width:520px;border-collapse:collapse;font-size:11.5px;font-family:'JetBrains Mono',monospace;}
+.tier-table th,.tier-table td{padding:8px 9px;text-align:center;border-bottom:1px solid var(--line);border-right:1px solid var(--line);}
+.tier-table th:last-child,.tier-table td:last-child{border-right:none;}
+.tier-table thead th{background:var(--panel-3);color:var(--cyan);font-weight:500;}
+.tier-table tbody th{text-align:left;color:var(--muted);background:var(--panel-2);white-space:nowrap;font-weight:500;}
+.tier-table tbody td{color:var(--text);}
 
-  /* ---------- STATS STRIP ---------- */
-  .stats{
-    background:var(--navy-2);border-top:1px solid rgba(143,184,224,.18);
-    border-bottom:1px solid rgba(143,184,224,.18);
-  }
-  .stats-inner{
-    max-width:1240px;margin:0 auto;padding:26px 28px;
-    display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
-  }
-  .stat{border-left:1px solid rgba(143,184,224,.25);padding-left:18px;}
-  .stat b{
-    font-family:'Space Grotesk',sans-serif;font-size:28px;color:#fff;font-weight:600;
-    display:block;
-  }
-  .stat span{font-size:12.5px;color:var(--line-soft);font-family:'IBM Plex Mono',monospace;}
+/* ---------- PROCESS ---------- */
+.signal{position:relative;margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+.signal::before{content:"";position:absolute;top:19px;left:6%;right:6%;height:1px;background:repeating-linear-gradient(90deg,var(--cyan-dim) 0 6px,transparent 6px 11px);opacity:.5;}
+.step{position:relative;padding-right:22px;}
+.step-node{
+  width:38px;height:38px;border-radius:50%;background:var(--void);border:1.5px solid var(--cyan);
+  display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:13px;
+  color:var(--cyan);font-weight:600;position:relative;z-index:2;margin-bottom:20px;box-shadow:0 0 14px rgba(53,231,255,.25);
+}
+.step h4{font-family:'Chakra Petch',sans-serif;font-size:16px;font-weight:600;margin-bottom:8px;}
+.step p{font-size:13px;color:var(--muted);line-height:1.6;max-width:240px;}
 
-  /* ---------- SERVICES ---------- */
-  .services{max-width:1240px;margin:0 auto;padding:96px 28px 64px;}
-  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:56px;flex-wrap:wrap;}
-  .section-eyebrow{
-    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--amber-dim);
-    letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;
-  }
-  h2.section-title{
-    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(26px,3.2vw,38px);
-    letter-spacing:-.01em;max-width:560px;
-  }
-  .section-note{max-width:380px;color:var(--slate);font-size:14.5px;line-height:1.7;}
+/* ---------- ABOUT ---------- */
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:start;}
+.about-copy p{color:var(--muted);font-size:14.5px;line-height:1.85;margin-bottom:16px;max-width:520px;}
+.about-copy p:first-of-type{color:var(--text);font-size:16.5px;line-height:1.7;font-weight:400;}
+.cert-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;margin:24px 0 12px;}
+.cert-badges{display:flex;flex-wrap:wrap;gap:8px;}
+.cert-badge{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);border:1px solid var(--line-2);padding:7px 12px;border-radius:var(--radius);background:var(--panel-2);}
+.about-side{display:flex;flex-direction:column;gap:18px;}
+.dc-photo{width:100%;height:200px;object-fit:cover;filter:saturate(.7) brightness(.75) contrast(1.1);}
+.spec-sheet{border:1px solid var(--line-2);background:var(--panel);}
+.spec-head{padding:14px 20px;border-bottom:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;}
+.spec-row{display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--line);font-size:13px;}
+.spec-row:last-child{border-bottom:none;}
+.spec-row span:first-child{color:var(--muted);}
+.spec-row span:last-child{font-family:'JetBrains Mono',monospace;font-weight:500;color:var(--text);text-align:right;}
 
-  .rack{border-top:1px solid #cfd9e0;}
-  .module{
-    position:relative;
-    border-bottom:1px solid #cfd9e0;
-    padding:34px 0 34px 0;
-    display:grid;
-    grid-template-columns:150px 1fr;
-    gap:32px;
-    transition:background .2s;
-  }
-  .module:hover{background:rgba(74,127,181,.045);}
-  .module-id-col{
-    display:flex;flex-direction:column;gap:10px;
-    padding-top:4px;
-  }
-  .module-id{
-    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--slate);
-    letter-spacing:.04em;
-  }
-  .led-row{display:flex;align-items:center;gap:8px;}
-  .led{width:7px;height:7px;border-radius:50%;background:var(--led);box-shadow:0 0 6px var(--led);animation:blink 2.6s ease-in-out infinite;}
-  .module:nth-child(2) .led{animation-delay:.3s;}
-  .module:nth-child(3) .led{animation-delay:.6s;}
-  .module:nth-child(4) .led{animation-delay:.9s;}
-  .module:nth-child(5) .led{animation-delay:1.2s;}
-  .module:nth-child(6) .led{animation-delay:1.5s;}
-  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.35;}}
-  .led-text{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--slate);letter-spacing:.06em;}
+/* ---------- TRUSTED / LOGOS ---------- */
+.logo-wall{display:flex;flex-wrap:wrap;align-items:center;gap:24px;margin:44px 0;padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.logo-item{height:32px;max-width:120px;object-fit:contain;background:#fff;padding:5px 9px;border-radius:var(--radius);filter:grayscale(1) brightness(1.6);opacity:.7;transition:all .2s;}
+.logo-item:hover{filter:none;opacity:1;}
+.trusted-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-bottom:52px;}
+.trusted-item{background:var(--panel);padding:18px 20px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#B9C4DC;}
+.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);}
+.case-card{background:var(--panel);padding:28px 26px;}
+.case-tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--cyan);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:12px;}
+.case-card h4{font-family:'Chakra Petch',sans-serif;font-size:17px;font-weight:600;margin-bottom:10px;}
+.case-card p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px;}
+.case-metric{display:flex;align-items:baseline;gap:8px;padding-top:14px;border-top:1px solid var(--line);}
+.case-metric b{font-family:'Chakra Petch',sans-serif;font-size:22px;color:var(--cyan);font-weight:600;}
+.case-metric span{font-size:11px;color:var(--muted-2);font-family:'JetBrains Mono',monospace;}
+.case-note{margin-top:20px;font-size:11.5px;color:var(--muted-2);font-family:'JetBrains Mono',monospace;line-height:1.6;}
 
-  .module-body h3{
-    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:21px;
-    margin-bottom:6px;letter-spacing:-.005em;
-  }
-  .module-body h3 a{border-bottom:1px solid transparent;transition:border-color .2s;}
-  .module-body h3 a:hover{border-color:var(--amber-dim);}
-  .module-tagline{color:var(--amber-dim);font-size:14px;font-weight:500;margin-bottom:14px;}
-  .module-desc{color:var(--slate);font-size:14.5px;line-height:1.65;max-width:640px;margin-bottom:16px;}
-  .spec-list{display:grid;grid-template-columns:1fr 1fr;gap:8px 28px;max-width:720px;}
-  .spec-list li{
-    font-size:13.5px;color:var(--text);line-height:1.55;
-    padding-left:16px;position:relative;
-  }
-  .spec-list li::before{
-    content:"";position:absolute;left:0;top:8px;width:7px;height:1px;background:var(--line);
-  }
-  .tier-table-wrap{overflow-x:auto;margin-top:20px;border:1px solid #cfd9e0;}
-  .tier-table{width:100%;min-width:600px;border-collapse:collapse;font-size:12px;}
-  .tier-table th,.tier-table td{
-    padding:9px 10px;text-align:center;border-bottom:1px solid #e2e8ed;border-right:1px solid #e2e8ed;
-  }
-  .tier-table th:last-child,.tier-table td:last-child{border-right:none;}
-  .tier-table thead th{
-    background:var(--navy-2);color:#EAF0F7;font-family:'IBM Plex Mono',monospace;
-    font-weight:500;letter-spacing:.02em;
-  }
-  .tier-table tbody th{
-    text-align:left;font-family:'IBM Plex Mono',monospace;color:var(--slate);
-    background:var(--paper-2);white-space:nowrap;font-weight:500;
-  }
-  .tier-table tbody td{color:var(--text);}
-  .tier-table tbody tr:nth-child(even) td{background:#fafbfc;}
+/* ---------- TESTIMONIALS ---------- */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px;}
+.testi-card{background:var(--panel);padding:26px 24px;display:flex;flex-direction:column;gap:16px;}
+.testi-mark{font-family:'Chakra Petch',sans-serif;font-size:34px;color:var(--cyan);line-height:1;font-weight:600;}
+.testi-quote{font-size:13.5px;line-height:1.7;color:#D6DEEF;flex:1;}
+.testi-who{display:flex;align-items:center;gap:11px;padding-top:14px;border-top:1px solid var(--line);}
+.testi-avatar{width:34px;height:34px;border-radius:50%;background:var(--panel-3);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;flex:none;}
+.testi-avatar-img{object-fit:cover;}
+.testi-who div b{display:block;font-size:13px;font-weight:600;}
+.testi-who div span{font-size:11.5px;color:var(--muted-2);}
 
-  /* ---------- PROCESS ---------- */
-  .process{background:var(--paper-2);padding:96px 28px;}
-  .process-inner{max-width:1240px;margin:0 auto;}
-  .signal-path{
-    position:relative;margin-top:64px;
-    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
-  }
-  .signal-path::before{
-    content:"";position:absolute;top:19px;left:6%;right:6%;height:1px;
-    background:repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 11px);
-  }
-  .step{position:relative;padding-right:24px;}
-  .step-node{
-    width:38px;height:38px;border-radius:50%;background:var(--paper-2);
-    border:1.5px solid var(--amber);display:flex;align-items:center;justify-content:center;
-    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--amber-dim);font-weight:500;
-    position:relative;z-index:2;margin-bottom:22px;
-  }
-  .step h4{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;margin-bottom:8px;}
-  .step p{font-size:13.5px;color:var(--slate);line-height:1.6;max-width:250px;}
+/* ---------- FAQ ---------- */
+.faq-list{margin-top:44px;border-top:1px solid var(--line);}
+.faq-item{border-bottom:1px solid var(--line);}
+.faq-item summary{list-style:none;cursor:pointer;padding:20px 4px;display:flex;justify-content:space-between;align-items:center;gap:20px;font-family:'Chakra Petch',sans-serif;font-size:15px;font-weight:600;}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-icon{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:16px;flex:none;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border:1px solid var(--cyan);border-radius:50%;transition:transform .2s;}
+.faq-item[open] .faq-icon{transform:rotate(45deg);}
+.faq-item p{padding:0 4px 22px;color:var(--muted);font-size:13.5px;line-height:1.7;max-width:680px;}
 
-  /* ---------- ABOUT ---------- */
-  .about-section{max-width:1240px;margin:0 auto;padding:96px 28px;
-    display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:start;}
-  .about-side{display:flex;flex-direction:column;gap:20px;}
-  .datacenter-photo{
-    width:100%;height:200px;object-fit:cover;filter:saturate(.85) contrast(1.05);
-    display:block;
-  }
-  .about-copy p{color:var(--slate);font-size:15px;line-height:1.85;margin-bottom:16px;max-width:520px;}
-  .about-copy p:first-of-type{color:var(--text);font-size:17px;line-height:1.7;font-weight:400;}
-  .cert-block{margin-top:8px;}
-  .cert-label{
-    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--amber-dim);
-    letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;
-  }
-  .cert-badges{display:flex;flex-wrap:wrap;gap:8px;}
-  .cert-badge{
-    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--text);
-    border:1px solid #cfd9e0;padding:7px 12px;border-radius:var(--radius);
-    background:var(--paper-2);
-  }
-  .spec-sheet{
-    background:var(--ink);border:1px solid rgba(143,184,224,.2);
-    padding:8px 0;
-  }
-  .spec-sheet-head{
-    padding:16px 24px;border-bottom:1px solid rgba(143,184,224,.18);
-    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--line-soft);
-    letter-spacing:.1em;text-transform:uppercase;
-  }
-  .spec-row{
-    display:flex;justify-content:space-between;padding:16px 24px;
-    border-bottom:1px solid rgba(143,184,224,.1);font-size:13.5px;
-  }
-  .spec-row:last-child{border-bottom:none;}
-  .spec-row span:first-child{color:#8FA6C4;}
-  .spec-row span:last-child{color:#EAF0F7;font-family:'IBM Plex Mono',monospace;font-weight:500;text-align:right;}
+/* ---------- CONTACT ---------- */
+.contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;}
+.contact-info h2{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:clamp(24px,3.2vw,34px);margin-bottom:16px;}
+.contact-info>p{color:var(--muted);font-size:14.5px;line-height:1.75;margin-bottom:28px;max-width:400px;}
+.contact-detail{display:flex;gap:14px;padding:16px 0;border-top:1px solid var(--line);}
+.contact-detail:last-child{border-bottom:1px solid var(--line);}
+.contact-detail-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--cyan);letter-spacing:.08em;text-transform:uppercase;width:86px;flex:none;padding-top:2px;}
+.contact-detail-val{font-size:14px;color:var(--text);line-height:1.6;}
+.contact-form{border:1px solid var(--line-2);background:var(--panel);padding:36px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.form-field{display:flex;flex-direction:column;gap:7px;}
+.form-field.full{grid-column:1/-1;}
+.form-field label{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
+.form-field input,.form-field select,.form-field textarea{
+  background:var(--void);border:1px solid var(--line-2);color:var(--text);padding:11px 13px;
+  font-family:'IBM Plex Sans Thai',sans-serif;font-size:13.5px;border-radius:var(--radius);resize:vertical;
+}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(53,231,255,.1);}
+.form-field textarea{min-height:100px;}
+.form-note{font-size:11px;color:var(--muted-2);margin-top:12px;font-family:'JetBrains Mono',monospace;line-height:1.6;}
+.form-submit{width:100%;justify-content:center;margin-top:4px;}
 
-  /* ---------- CLIENTS / CASE STUDIES ---------- */
-  .clients{background:var(--navy-2);padding:96px 28px;}
-  .clients-inner{max-width:1240px;margin:0 auto;}
-  .clients .section-title,.clients .section-note{color:#EAF0F7;}
-  .clients .section-note{color:#8FA6C4;}
-  .clients .section-eyebrow{color:var(--amber);}
-  .logo-wall{
-    display:flex;flex-wrap:wrap;align-items:center;gap:28px;
-    margin-top:48px;padding:32px 0;border-top:1px solid rgba(143,184,224,.15);
-    border-bottom:1px solid rgba(143,184,224,.15);
-  }
-  .logo-item{
-    height:34px;max-width:130px;object-fit:contain;
-    filter:grayscale(100%) brightness(1.8) contrast(.9);opacity:.75;
-    transition:filter .2s, opacity .2s;
-    background:#fff;padding:6px 10px;border-radius:var(--radius);
-  }
-  .logo-item:hover{filter:none;opacity:1;}
-  .trusted-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
-    background:rgba(143,184,224,.18);margin-top:48px;margin-bottom:56px;
-  }
-  .trusted-item{
-    background:var(--navy-2);padding:20px 22px;
-    font-family:'IBM Plex Mono',monospace;font-size:13px;color:#C7D4E4;
-    letter-spacing:.01em;
-  }
-  .case-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
-    background:rgba(143,184,224,.18);margin-top:56px;
-  }
-  .case-card{background:var(--navy-2);padding:32px 28px;}
-  .case-tag{
-    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--amber);
-    letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;display:block;
-  }
-  .case-card h4{font-family:'Space Grotesk',sans-serif;font-size:18px;color:#fff;font-weight:600;margin-bottom:10px;}
-  .case-card p{font-size:13.5px;color:#8FA6C4;line-height:1.65;margin-bottom:18px;}
-  .case-metric{
-    display:flex;align-items:baseline;gap:8px;padding-top:16px;
-    border-top:1px solid rgba(143,184,224,.15);
-  }
-  .case-metric b{font-family:'Space Grotesk',sans-serif;font-size:24px;color:var(--amber);font-weight:600;}
-  .case-metric span{font-size:12px;color:#8FA6C4;font-family:'IBM Plex Mono',monospace;}
-  .case-note{margin-top:24px;font-size:12.5px;color:#5A6B85;font-family:'IBM Plex Mono',monospace;}
+/* ---------- FOOTER ---------- */
+footer{background:var(--panel);border-top:1px solid var(--line);padding:44px 28px 26px;}
+.footer-inner{max-width:1280px;margin:0 auto;}
+.footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:28px;padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:20px;}
+.footer-nav{display:flex;gap:20px;flex-wrap:wrap;}
+.footer-nav a{font-size:13px;color:var(--muted);}
+.footer-nav a:hover{color:var(--cyan);}
+.footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted-2);}
 
-  /* ---------- TESTIMONIALS ---------- */
-  .testimonials{max-width:1240px;margin:0 auto;padding:96px 28px;}
-  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px;}
-  .testi-card{
-    border:1px solid #cfd9e0;padding:28px 26px;position:relative;
-    display:flex;flex-direction:column;gap:18px;
-  }
-  .testi-mark{font-family:'Space Grotesk',sans-serif;font-size:38px;color:var(--amber);line-height:1;font-weight:600;}
-  .testi-quote{font-size:14.5px;line-height:1.75;color:var(--text);flex:1;}
-  .testi-who{display:flex;align-items:center;gap:12px;padding-top:14px;border-top:1px solid #e2e8ed;}
-  .testi-avatar{
-    width:36px;height:36px;border-radius:50%;background:var(--navy);color:var(--amber);
-    display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;
-    font-size:13px;font-weight:500;flex:none;
-  }
-  .testi-avatar-img{object-fit:cover;}
-  .testi-who div b{display:block;font-size:13.5px;font-weight:600;}
-  .testi-who div span{font-size:12px;color:var(--slate);}
-
-  /* ---------- FAQ ---------- */
-  .faq{background:var(--paper-2);padding:96px 28px;}
-  .faq-inner{max-width:860px;margin:0 auto;}
-  .faq-inner .section-head{max-width:none;}
-  .faq-list{margin-top:48px;border-top:1px solid #cfd9e0;}
-  .faq-item{border-bottom:1px solid #cfd9e0;}
-  .faq-item summary{
-    list-style:none;cursor:pointer;padding:22px 4px;
-    display:flex;justify-content:space-between;align-items:center;gap:20px;
-    font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;
-  }
-  .faq-item summary::-webkit-details-marker{display:none;}
-  .faq-icon{
-    font-family:'IBM Plex Mono',monospace;color:var(--amber);font-size:18px;flex:none;
-    width:22px;height:22px;display:flex;align-items:center;justify-content:center;
-    border:1px solid var(--amber);transition:transform .2s;
-  }
-  .faq-item[open] .faq-icon{transform:rotate(45deg);}
-  .faq-item p{padding:0 4px 24px;color:var(--slate);font-size:14.5px;line-height:1.7;max-width:680px;}
-
-  /* ---------- CONTACT FORM ---------- */
-  .contact-wrap{
-    max-width:1240px;margin:0 auto;padding:96px 28px;
-    display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;
-  }
-  .contact-info h2{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(26px,3.2vw,36px);margin-bottom:18px;letter-spacing:-.01em;}
-  .contact-info>p{color:var(--slate);font-size:15px;line-height:1.75;margin-bottom:32px;max-width:400px;}
-  .contact-detail{display:flex;gap:14px;padding:18px 0;border-top:1px solid #cfd9e0;}
-  .contact-detail:last-child{border-bottom:1px solid #cfd9e0;}
-  .contact-detail-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--amber-dim);letter-spacing:.08em;text-transform:uppercase;width:90px;flex:none;padding-top:2px;}
-  .contact-detail-val{font-size:14.5px;color:var(--text);line-height:1.6;}
-  .contact-form{background:var(--ink);padding:40px;position:relative;}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
-  .form-field{display:flex;flex-direction:column;gap:8px;}
-  .form-field.full{grid-column:1 / -1;}
-  .form-field label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8FA6C4;letter-spacing:.08em;text-transform:uppercase;}
-  .form-field input,.form-field select,.form-field textarea{
-    background:var(--navy);border:1px solid rgba(143,184,224,.25);color:#EAF0F7;
-    padding:12px 14px;font-family:'IBM Plex Sans Thai',sans-serif;font-size:14px;
-    border-radius:var(--radius);resize:vertical;
-  }
-  .form-field input:focus,.form-field select:focus,.form-field textarea:focus{
-    outline:none;border-color:var(--amber);
-  }
-  .form-field textarea{min-height:110px;}
-  .form-note{font-size:12px;color:#5A6B85;margin-top:14px;font-family:'IBM Plex Mono',monospace;line-height:1.6;}
-  .form-submit{width:100%;justify-content:center;margin-top:6px;}
-
-  /* ---------- CTA STRIP ---------- */
-  .cta-strip{
-    background:var(--ink);color:#fff;padding:80px 28px;
-    background-image:linear-gradient(var(--line-soft) 1px, transparent 1px),linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
-    background-size:44px 44px;position:relative;
-  }
-  .cta-strip::before{
-    content:"";position:absolute;inset:0;
-    background:radial-gradient(ellipse 60% 90% at 50% 50%, rgba(10,22,40,0) 0%, var(--ink) 82%);
-  }
-  .cta-inner{max-width:760px;margin:0 auto;text-align:center;position:relative;z-index:2;}
-  .cta-inner h2{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(24px,3.4vw,36px);margin-bottom:16px;}
-  .cta-inner p{color:#B6C4D8;font-size:15.5px;margin-bottom:32px;font-weight:300;}
-  .cta-btn-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-
-  /* ---------- FOOTER ---------- */
-  footer{background:var(--navy-2);color:#B6C4D8;padding:48px 28px 28px;}
-  .footer-inner{max-width:1240px;margin:0 auto;}
-  .footer-top{
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;
-    padding-bottom:32px;border-bottom:1px solid rgba(143,184,224,.18);
-    margin-bottom:22px;
-  }
-  .footer-nav{display:flex;gap:22px;flex-wrap:wrap;}
-  .footer-nav a{font-size:13.5px;color:#B6C4D8;}
-  .footer-nav a:hover{color:#fff;}
-  .footer-bottom{
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
-    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--slate);
-  }
-
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width:860px){
-    nav.main-nav{
-      position:fixed;top:72px;left:0;right:0;bottom:0;
-      background:var(--ink);flex-direction:column;padding:20px;gap:0;
-      transform:translateX(100%);transition:transform .25s ease;
-    }
-    nav.main-nav.open{transform:translateX(0);}
-    nav.main-nav a{padding:16px 8px;border-bottom:1px solid rgba(143,184,224,.12);border-radius:0;}
-    .nav-item.has-dropdown{flex-direction:column;align-items:stretch;}
-    .dropdown-menu{
-      position:static;display:flex;border:none;box-shadow:none;
-      background:rgba(143,184,224,.05);padding:0 0 0 16px;margin-bottom:4px;
-    }
-    .dropdown-menu a{padding:12px 8px;border-bottom:none;}
-    .nav-toggle{display:block;}
-    .stats-inner{grid-template-columns:1fr 1fr;}
-    .module{grid-template-columns:1fr;gap:14px;}
-    .spec-list{grid-template-columns:1fr;}
-    .tier-table-wrap{margin-top:16px;}
-    .schematic{display:none;}
-    .signal-path{grid-template-columns:1fr;gap:32px;}
-    .signal-path::before{display:none;}
-    .about-section{grid-template-columns:1fr;gap:40px;}
-    .case-grid{grid-template-columns:1fr;}
-    .trusted-grid{grid-template-columns:1fr;}
-    .testi-grid{grid-template-columns:1fr;}
-    .contact-wrap{grid-template-columns:1fr;gap:40px;}
-    .form-row{grid-template-columns:1fr;}
-    .contact-form{padding:26px;}
-  }
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:860px){
+  nav.main-nav{position:fixed;top:68px;left:0;right:0;bottom:0;background:var(--void);flex-direction:column;padding:20px;gap:0;transform:translateX(100%);transition:transform .25s ease;overflow-y:auto;}
+  nav.main-nav.open{transform:translateX(0);}
+  nav.main-nav a{padding:16px 8px;border-bottom:1px solid var(--line);border-radius:0;}
+  .nav-item.has-dropdown{flex-direction:column;align-items:stretch;}
+  .dropdown-menu{position:static;display:flex;border:none;box-shadow:none;background:rgba(53,231,255,.04);padding:0 0 0 16px;margin-bottom:4px;}
+  .dropdown-menu a{padding:12px 8px;border-bottom:none;}
+  .nav-toggle{display:block;}
+  .readout{grid-template-columns:1fr 1fr;}
+  .calc-shell{grid-template-columns:1fr;}
+  .calc-inputs{border-right:none;border-bottom:1px solid var(--line);}
+  .field-row{grid-template-columns:1fr;}
+  .svc-grid{grid-template-columns:1fr;}
+  .signal{grid-template-columns:1fr;gap:28px;}
+  .signal::before{display:none;}
+  .about-grid{grid-template-columns:1fr;gap:36px;}
+  .trusted-grid,.case-grid,.testi-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;gap:36px;}
+  .form-row{grid-template-columns:1fr;}
+  .contact-form{padding:24px;}
+}
 </style>
 </head>
 <body>
@@ -522,10 +356,18 @@
           <a href="#vps-forex">Cloud – VPS Forex</a>
         </div>
       </div>
-      <a href="#cloud">Dedicated</a>
-      <a href="#storage">Storage</a>
       <a href="#dr-site">DR-Site</a>
-      <a href="#it-solution">IT Solution</a>
+      <a href="#storage">Storage</a>
+      <div class="nav-item has-dropdown">
+        <a href="#calculator">Calculator</a>
+        <div class="dropdown-menu">
+          <a href="#" data-tab="windows" class="calc-nav-link">Windows License Calculator</a>
+          <a href="#" data-tab="sql" class="calc-nav-link">SQL License Calculator</a>
+          <a href="#" data-tab="backup" class="calc-nav-link">Backup Calculator</a>
+          <a href="#" data-tab="bandwidth" class="calc-nav-link">Bandwidth Calculator</a>
+        </div>
+      </div>
+      <a href="#about">About</a>
       <a href="#contact" class="nav-cta">Contact</a>
     </nav>
     <button class="nav-toggle" id="navToggle" aria-label="เมนู">☰</button>
@@ -533,386 +375,566 @@
 </header>
 
 <section class="hero" id="home">
+  <div class="hero-bg"><div class="glow-orb c"></div><div class="glow-orb v"></div></div>
   <div class="hero-inner">
-    <div class="eyebrow">Since 2013 · IT Infrastructure + Cloud Partner</div>
-    <h1 class="hero-title">
-      <span class="th">โครงสร้างพื้นฐานไอที</span><br>
-      <span class="th">ที่ธุรกิจคุณวางใจได้</span>
-    </h1>
+    <div class="eyebrow"><span class="pulse-dot"></span>Since 2013 · IT Infrastructure + Cloud Partner</div>
+    <h1 class="hero-title">โครงสร้างพื้นฐานไอที<br>ที่<span class="grad">ขับเคลื่อนธุรกิจคุณ</span>ได้จริง</h1>
     <p class="hero-sub">
       Ninety-One Consulting วางระบบ ดูแล และซัพพอร์ตโครงสร้างพื้นฐานไอทีแบบครบวงจร ตั้งแต่ Server, Network, Cloud VPS, Dedicated Server, Cloud Storage ไปจนถึงแผนสำรองฉุกเฉิน — ให้ทีมงานเป็นคนดูแลเรื่องระบบ ส่วนคุณโฟกัสที่การเติบโตของธุรกิจ
     </p>
     <div class="hero-cta-row">
       <a href="#contact" class="btn btn-primary">นัดคุยกับทีมวิศวกร →</a>
-      <a href="#services" class="btn btn-ghost">ดูบริการทั้งหมด</a>
+      <a href="#calculator" class="btn btn-ghost">ลองคำนวณ License ฟรี</a>
     </div>
-  </div>
 
-  <div class="hero-inner schematic">
-    <svg viewBox="0 0 1180 220" preserveAspectRatio="xMidYMid meet">
-      <!-- lines from core to 6 endpoints -->
-      <path class="node-line n1" d="M 120 110 H 340" />
-      <path class="node-line n2" d="M 120 110 C 200 60, 260 55, 480 40" />
-      <path class="node-line n3" d="M 120 110 C 200 85, 300 78, 480 78" />
-      <path class="node-line n4" d="M 120 110 C 200 135, 300 142, 480 142" />
-      <path class="node-line n5" d="M 120 110 C 200 160, 260 178, 480 180" />
-      <path class="node-line n6" d="M 120 110 V 110" />
-      <path class="node-line n6" d="M 120 110 C 220 200, 350 205, 480 205" />
-
-      <!-- core node -->
-      <rect class="node-core" x="70" y="85" width="100" height="50" rx="2"/>
-      <text class="node-core-label" x="120" y="115" text-anchor="middle">91</text>
-
-      <!-- endpoints -->
-      <g>
-        <circle class="end-dot" cx="486" cy="40" r="3"/>
-        <text class="end-label" x="500" y="44">Infrastructure Design</text>
-      </g>
-      <g>
-        <circle class="end-dot" cx="486" cy="78" r="3"/>
-        <text class="end-label" x="500" y="82">Equipment Sales &amp; Rental</text>
-      </g>
-      <g>
-        <circle class="end-dot" cx="486" cy="110" r="3"/>
-        <text class="end-label" x="500" y="114">Managed Services</text>
-      </g>
-      <g>
-        <circle class="end-dot" cx="486" cy="142" r="3"/>
-        <text class="end-label" x="500" y="146">Cloud VPS &amp; Dedicated</text>
-      </g>
-      <g>
-        <circle class="end-dot" cx="486" cy="180" r="3"/>
-        <text class="end-label" x="500" y="184">Disaster Recovery</text>
-      </g>
-      <g>
-        <circle class="end-dot" cx="486" cy="205" r="3"/>
-        <text class="end-label" x="500" y="209">IT Relocation</text>
-      </g>
-    </svg>
+    <div class="readout">
+      <div class="readout-item"><b>10+</b><span>YEARS IN IT</span></div>
+      <div class="readout-item"><b>11</b><span>CORE SERVICES</span></div>
+      <div class="readout-item"><b>99.9%</b><span>DATA CENTER UPTIME</span></div>
+      <div class="readout-item"><b>24/7</b><span>REMOTE SUPPORT</span></div>
+    </div>
   </div>
 </section>
 
-<div class="stats">
-  <div class="stats-inner">
-    <div class="stat"><b>10+</b><span>YEARS IN IT</span></div>
-    <div class="stat"><b>11</b><span>CORE SERVICES</span></div>
-    <div class="stat"><b>99.9%</b><span>DATA CENTER UPTIME</span></div>
-    <div class="stat"><b>24/7</b><span>REMOTE SUPPORT</span></div>
-  </div>
-</div>
-
-<section class="services" id="services">
+<!-- ============ SIGNATURE: CALCULATOR HUB ============ -->
+<section class="calc-section" id="calculator">
   <div class="section-head">
     <div>
-      <div class="section-eyebrow">/ Service Catalogue</div>
-      <h2 class="section-title">บริการของเรา</h2>
+      <div class="eyebrow-sm">/ Free Tools</div>
+      <h2 class="section-title">เครื่องคำนวณสำหรับงานไอที</h2>
     </div>
-    <p class="section-note">
-      ที่ Ninety-One Consulting เราเชื่อว่าเทคโนโลยีที่ดีควรช่วยให้ธุรกิจเติบโตอย่างยั่งยืน ด้วยบริการแบบ One-Stop Service ตั้งแต่วางระบบจนถึงดูแลหลังการติดตั้ง
-    </p>
+    <p class="section-note">เครื่องมือช่วยวางแผนงบประมาณเบื้องต้น ก่อนคุยกับทีมวิศวกรเพื่อขอใบเสนอราคาจริง</p>
   </div>
 
-  <div class="rack">
-
-    <article class="module">
-      <div class="module-id-col">
-        <div class="module-id">RACK · 01</div>
-        <div class="led-row"><span class="led"></span><span class="led-text">ACTIVE</span></div>
-      </div>
-      <div class="module-body">
-        <h3><a href="#contact">End-to-End IT Infrastructure Solutions</a></h3>
-        <div class="module-tagline">ออกแบบ ติดตั้ง และให้คำปรึกษาโดยวิศวกรผู้เชี่ยวชาญ</div>
-        <p class="module-desc">วางระบบโครงสร้างพื้นฐานไอทีตั้งแต่ต้นจนจบ ปรับให้เหมาะกับขนาดองค์กรและงบประมาณของแต่ละธุรกิจ</p>
-        <ul class="spec-list">
-          <li>วางระบบ Server, Storage และ Network สำหรับองค์กรทุกขนาด</li>
-          <li>ติดตั้งเครือข่ายไร้สาย (Wi-Fi) ความเร็วสูง รองรับการใช้งานหนาแน่น</li>
-          <li>ออกแบบระบบรักษาความปลอดภัย Firewall, VPN, Load Balancer</li>
-          <li>ปรับแต่งโซลูชันให้เหมาะกับงบประมาณและเป้าหมายธุรกิจ</li>
-        </ul>
-      </div>
-    </article>
-
-    <article class="module">
-      <div class="module-id-col">
-        <div class="module-id">RACK · 02</div>
-        <div class="led-row"><span class="led"></span><span class="led-text">ACTIVE</span></div>
-      </div>
-      <div class="module-body">
-        <h3><a href="#contact">IT Equipment Sales &amp; Rental</a></h3>
-        <div class="module-tagline">จำหน่ายและให้เช่าอุปกรณ์ไอทีสำหรับองค์กร</div>
-        <p class="module-desc">ครบวงจรทั้งฮาร์ดแวร์และโซลูชัน พร้อมบริการติดตั้งและดูแลหลังการขาย</p>
-        <ul class="spec-list">
-          <li>จำหน่าย Server, Storage, Firewall, Switch, Wireless AP</li>
-          <li>ให้เช่าอุปกรณ์ไอทีสำหรับโปรเจกต์ระยะสั้นหรืองานอีเวนต์</li>
-          <li>บริการ On-site Setup และ Remote Support</li>
-          <li>แพ็กเกจรายเดือน/รายปี พร้อมใบเสนอราคาอย่างเป็นทางการ</li>
-        </ul>
-      </div>
-    </article>
-
-    <article class="module">
-      <div class="module-id-col">
-        <div class="module-id">RACK · 03</div>
-        <div class="led-row"><span class="led"></span><span class="led-text">ACTIVE</span></div>
-      </div>
-      <div class="module-body">
-        <h3><a href="#contact">IT Managed Services &amp; Consulting</a></h3>
-        <div class="module-tagline">เพราะเราไม่ได้แค่ “ติดตั้ง” แต่ยังพร้อม “ดูแล”</div>
-        <p class="module-desc">ทีมงานพร้อมสนับสนุนตลอดอายุการใช้งานระบบ ไม่ใช่แค่วันที่ติดตั้งเสร็จ</p>
-        <ul class="spec-list">
-          <li>บริการ Managed Services และ MA (Maintenance Agreement)</li>
-          <li>ทีมงานให้คำแนะนำตลอดการใช้งาน</li>
-          <li>ตรวจเช็กสุขภาพระบบสม่ำเสมอ ป้องกันปัญหาก่อนเกิดจริง</li>
-        </ul>
-      </div>
-    </article>
-
-    <article class="module" id="cloud">
-      <div class="module-id-col">
-        <div class="module-id">RACK · 04</div>
-        <div class="led-row"><span class="led"></span><span class="led-text">ACTIVE</span></div>
-      </div>
-      <div class="module-body">
-        <h3><a href="#contact">Cloud VPS SSD &amp; Dedicated Server</a></h3>
-        <div class="module-tagline">ยืดหยุ่น ปลอดภัย พร้อมรองรับการขยายตัวของธุรกิจ</div>
-        <p class="module-desc">โครงสร้าง Cloud และเซิร์ฟเวอร์กายภาพบน Data Center มาตรฐาน CS Loxinfo รับประกัน Uptime 99.9% ปรับขนาดได้ตามการใช้งานจริง</p>
-        <ul class="spec-list">
-          <li>Cloud VPS SSD บน DELL Server และ Samsung SSD ปรับขนาดทรัพยากรได้ตามใช้งานจริง</li>
-          <li>Dedicated Server เครื่องเต็มสำหรับงานที่ต้องการประสิทธิภาพและความเป็นส่วนตัวสูง</li>
-          <li>บริหารจัดการผ่าน Control Panel พร้อม Daily Backup ย้อนหลังสูงสุด 5 วัน</li>
-          <li>ใช้ Hardware RAID-5 เพิ่มความเสถียร ป้องกันข้อมูลสูญหาย</li>
-          <li>ควบคุมเครื่องผ่าน Remote Desktop / SSH ปรับแต่ง OS และซอฟต์แวร์ได้อิสระ</li>
-          <li>รองรับหลาย OS: Windows, CentOS, Debian, Fedora, Ubuntu</li>
-        </ul>
-        <div class="tier-table-wrap">
-          <table class="tier-table">
-            <thead>
-              <tr><th>Cloud VPS Plan</th><th>Cloud S1</th><th>Cloud S2</th><th>Cloud S3</th><th>Cloud S4</th><th>Cloud S5</th></tr>
-            </thead>
-            <tbody>
-              <tr><th>Core CPU</th><td>1</td><td>2</td><td>4</td><td>4</td><td>6</td></tr>
-              <tr><th>RAM</th><td>2 GB</td><td>4 GB</td><td>8 GB</td><td>12 GB</td><td>16 GB</td></tr>
-              <tr><th>SSD RAID-5</th><td>20 GB</td><td>40 GB</td><td>80 GB</td><td>120 GB</td><td>160 GB</td></tr>
-              <tr><th>Network Port</th><td colspan="5">1 Gbps</td></tr>
-              <tr><th>IP Address</th><td colspan="5">1 IP</td></tr>
-              <tr><th>Data Transfer</th><td colspan="5">ไม่จำกัด</td></tr>
-              <tr><th>Daily Backup</th><td colspan="5">ฟรี · ย้อนหลัง 5 วัน</td></tr>
-              <tr><th>Operating System</th><td colspan="5">Windows / CentOS / Debian / Fedora / Ubuntu</td></tr>
-              <tr><th>VPS Location</th><td colspan="5">The Cloud Data Center By CS Loxinfo</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </article>
-
-    <article class="module" id="vps-business">
-      <div class="module-id-col">
-        <div class="module-id">RACK · 05</div>
-        <div class="led-row"><span class="led"></span><span class="led-text">ACTIVE</span></div>
-      </div>
-      <div class="module-body">
-        <h3><a href="#contact">Cloud VPS Business</a></h3>
-        <div class="module-tagline">ทรัพยากรเต็มเครื่อง ไม่ต้องแชร์กับใคร สำหรับองค์กรที่ต้องการประสิทธิภาพสูง</div>
-        <p class="module-desc">เซิร์ฟเวอร์เสมือนระดับองค์กร ไม่ต้องลงทุน Hardware เอง ควบคุมได้อิสระเสมือนเป็นเจ้าของเครื่องเอง</p>
-        <ul class="spec-list">
-          <li>ควบคุมผ่าน Remote Desktop, SSH หรือ vSphere Web Client ได้อย่างอิสระ</li>
-          <li>ปรับแต่ง Configuration ของระบบปฏิบัติการและซอฟต์แวร์ได้เต็มที่</li>
-          <li>ใช้ DELL Server และ Samsung SSD คุณภาพสูง พร้อม Hardware RAID-5</li>
-          <li>Backup ข้อมูลอัตโนมัติทุกวัน ย้อนหลังสูงสุดได้ 7 วัน (มากกว่าแพลนทั่วไป)</li>
-          <li>มี Public IP ใช้งานอิสระส่วนตัว พร้อมเจ้าหน้าที่ดูแลตลอด 24/7/365</li>
-        </ul>
-      </div>
-    </article>
-
-    <article class="module" id="vps-forex">
-      <div class="module-id-col">
-        <div class="module-id">RACK · 06</div>
-        <div class="led-row"><span class="led"></span><span class="led-text">ACTIVE</span></div>
-      </div>
-      <div class="module-body">
-        <h3><a href="#contact">Cloud VPS Forex</a></h3>
-        <div class="module-tagline">เซิร์ฟเวอร์เฉพาะสาย Trading เปิด EA ได้ต่อเนื่องตลอด 24 ชั่วโมง</div>
-        <p class="module-desc">ออกแบบมาสำหรับนักเทรดโดยเฉพาะ ทรัพยากรไม่ต้องแบ่งใคร เชื่อมต่อตรงไปต่างประเทศ ไม่พลาดทุกคำสั่งเทรด</p>
-        <ul class="spec-list">
-          <li>รองรับ EA / EA Copy Trade / Backtest บน MT4, MT5, cTrader ได้ครบ</li>
-          <li>รันได้ทุกโบรกเกอร์ เช่น XM, FBS, Vantage FX, Pepperstone, Exness, Hotforex</li>
-          <li>ทรัพยากรที่ได้รับจัดสรรใช้งานเต็มประสิทธิภาพ ไม่ต้องแบ่งผู้ใช้รายอื่น</li>
-          <li>ทำงานแทนคอมพิวเตอร์ตลอด 24 ชั่วโมง ไม่มีวันหยุด</li>
-          <li>ควบคุมผ่าน Remote Desktop เสมือนอยู่หน้าจอเครื่องเซิร์ฟเวอร์เอง</li>
-        </ul>
-      </div>
-    </article>
-
-    <article class="module" id="dr-site">
-      <div class="module-id-col">
-        <div class="module-id">RACK · 07</div>
-        <div class="led-row"><span class="led"></span><span class="led-text">ACTIVE</span></div>
-      </div>
-      <div class="module-body">
-        <h3><a href="#contact">Disaster Recovery Site &amp; Cloud Backup</a></h3>
-        <div class="module-tagline">เตรียมพร้อมก่อนเกิดเหตุ ฉุกเฉินแค่ไหนธุรกิจก็ไม่หยุด</div>
-        <p class="module-desc">แผนสำรองข้อมูลและการฟื้นฟูระบบแบบ Disaster Recovery as a Service ลดความเสียหายเมื่อเกิดเหตุไม่คาดฝัน โดยไม่ต้องลงทุน Hardware เอง</p>
-        <ul class="spec-list">
-          <li>วางระบบสำรองข้อมูลและแผน Business Continuity Plan</li>
-          <li>สำรองและกู้คืนได้ทั้ง Physical Server, Virtual Server, VMware, Hyper-V</li>
-          <li>กู้คืนข้อมูลได้ทั้งระดับ File-based และ Volume-based พร้อม Encryption</li>
-          <li>สลับไปใช้งานระบบบน DR-Site ได้ทันทีเมื่อระบบหลัก Down</li>
-          <li>เชื่อมต่อศูนย์ข้อมูลสำรองมาตรฐาน CS Loxinfo รับประกัน Uptime 99.9%</li>
-        </ul>
-        <div class="tier-table-wrap">
-          <table class="tier-table">
-            <thead>
-              <tr><th>DR-Site Plan</th><th>DR-1</th><th>DR-2</th><th>DR-3</th><th>DR-4</th><th>DR-5</th></tr>
-            </thead>
-            <tbody>
-              <tr><th>Storage</th><td>200 GB</td><td>500 GB</td><td>1 TB</td><td>1.5 TB</td><td>2 TB</td></tr>
-              <tr><th>Bandwidth</th><td colspan="5">1 Gbps</td></tr>
-              <tr><th>Data Transfer</th><td colspan="5">ไม่จำกัด</td></tr>
-              <tr><th>Source Server</th><td>1</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
-              <tr><th>Activate Resource (CPU/RAM)</th><td>2C/4GB</td><td>2C/4GB</td><td>4C/8GB</td><td>6C/12GB</td><td>8C/16GB</td></tr>
-              <tr><th>Source OS Support</th><td colspan="5">Windows Server 2008–2019, Windows 7/8/10</td></tr>
-              <tr><th>ค่าติดตั้ง / License</th><td colspan="5">ฟรี</td></tr>
-              <tr><th>DR-Site Location</th><td colspan="5">The Cloud Data Center By CS Loxinfo</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </article>
-
-    <article class="module" id="storage">
-      <div class="module-id-col">
-        <div class="module-id">RACK · 08</div>
-        <div class="led-row"><span class="led"></span><span class="led-text">ACTIVE</span></div>
-      </div>
-      <div class="module-body">
-        <h3><a href="#contact">Cloud Storage &amp; File Backup</a></h3>
-        <div class="module-tagline">พื้นที่รับฝากข้อมูลบนคลาวด์ ตั้งอยู่ในประเทศไทย</div>
-        <p class="module-desc">เก็บและแชร์ไฟล์องค์กรได้จากทุกอุปกรณ์ ปลอดภัย เข้าถึงง่าย ไม่ต้องลงทุนอุปกรณ์จัดเก็บข้อมูลเอง</p>
-        <ul class="spec-list">
-          <li>เข้าถึงไฟล์ได้ทุกที่ทุกเวลา ผ่าน Website, Windows, MAC, iOS, Android</li>
-          <li>แชร์ไฟล์ภายในองค์กรหรือส่งลิงก์ให้ผู้อื่นได้ในไม่กี่คลิก (Password Protected Sharing)</li>
-          <li>ค้นหาไฟล์ ดูตัวอย่างไฟล์ และเรียกดูเวอร์ชันย้อนหลังได้ (Version Files)</li>
-          <li>กู้คืนไฟล์ที่ลบไปแล้วได้ (Recovery Deleted Files)</li>
-          <li>จัดเก็บบน Hardware RAID-10 ในประเทศไทย มั่นใจเรื่องความเป็นส่วนตัว</li>
-        </ul>
-        <div class="tier-table-wrap">
-          <table class="tier-table">
-            <thead>
-              <tr><th>Cloud Storage Plan</th><th>CS-100</th><th>CS-500</th><th>CS-1000</th><th>CS-1500</th><th>CS-2000</th></tr>
-            </thead>
-            <tbody>
-              <tr><th>Storage (RAID-10)</th><td>100 GB</td><td>500 GB</td><td>1000 GB</td><td>1500 GB</td><td>2000 GB</td></tr>
-              <tr><th>User Account</th><td colspan="5">ไม่จำกัด</td></tr>
-              <tr><th>Max File Size</th><td colspan="5">ไม่จำกัด</td></tr>
-              <tr><th>Data Transfer</th><td colspan="5">ไม่จำกัด</td></tr>
-              <tr><th>Support Device</th><td colspan="5">Website / Windows / MAC / iOS / Android</td></tr>
-              <tr><th>ค่าติดตั้ง</th><td colspan="5">ฟรี</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </article>
-
-    <article class="module">
-      <div class="module-id-col">
-        <div class="module-id">RACK · 09</div>
-        <div class="led-row"><span class="led"></span><span class="led-text">ACTIVE</span></div>
-      </div>
-      <div class="module-body">
-        <h3><a href="#contact">Cloud Web Hosting</a></h3>
-        <div class="module-tagline">โฮสต์เว็บไซต์และอีเมลองค์กร บริหารจัดการเองได้ผ่าน Control Panel</div>
-        <p class="module-desc">บริการ Web Hosting ครบทั้งเว็บไซต์และอีเมล จัดการทุกอย่างได้เองผ่าน Control Panel ชื่อดังระดับโลก</p>
-        <ul class="spec-list">
-          <li>บริหารจัดการผ่าน DirectAdmin Control Panel ใช้งานง่าย</li>
-          <li>ไม่จำกัดจำนวน Sub Domain และฐานข้อมูล MySQL จัดการง่ายด้วย phpMyAdmin</li>
-          <li>จัดการอีเมลได้เอง เพิ่ม/ลบ Account และกำหนดพื้นที่ได้ตามต้องการ</li>
-          <li>ใช้ DELL Server พร้อม Hardware RAID-1 ป้องกันข้อมูลสูญหาย</li>
-          <li>Data Center มาตรฐาน CS Loxinfo รับประกัน Uptime 99.9%</li>
-        </ul>
-      </div>
-    </article>
-
-    <article class="module" id="it-solution">
-      <div class="module-id-col">
-        <div class="module-id">RACK · 10</div>
-        <div class="led-row"><span class="led"></span><span class="led-text">ACTIVE</span></div>
-      </div>
-      <div class="module-body">
-        <h3><a href="#contact">System Migration &amp; Virtualization</a></h3>
-        <div class="module-tagline">ย้ายระบบขึ้น Cloud หรือ Private Cloud โดยไม่ให้ธุรกิจสะดุด</div>
-        <p class="module-desc">บริการย้ายระบบจาก Server เครื่องเก่าไปสู่ Cloud หรือ VMware Private Cloud พร้อมวางระบบความปลอดภัยเครือข่ายให้ครบ</p>
-        <ul class="spec-list">
-          <li>ย้ายระบบจาก Server เครื่องเก่าไปไว้บน Cloud หรือ VMware (Private Cloud)</li>
-          <li>ย้ายระบบข้ามผู้ให้บริการ Cloud เดิมไปยัง Cloud ใหม่ได้โดยไม่มีค่าใช้จ่ายเพิ่ม</li>
-          <li>บริการ VMware Resource Pool และ ESXi บริหารจัดการทรัพยากรได้ด้วยตนเองเสมือนเป็นเจ้าของ Private Cloud</li>
-          <li>ติดตั้งระบบ Firewall หรือ Virtual Firewall ตรวจจับผู้บุกรุกและอุดช่องโหว่เครือข่าย</li>
-        </ul>
-      </div>
-    </article>
-
-    <article class="module">
-      <div class="module-id-col">
-        <div class="module-id">RACK · 11</div>
-        <div class="led-row"><span class="led"></span><span class="led-text">ACTIVE</span></div>
-      </div>
-      <div class="module-body">
-        <h3><a href="#contact">Office IT Relocation Services</a></h3>
-        <div class="module-tagline">บริการย้ายระบบไอทีและอุปกรณ์สำนักงานแบบครบวงจร</div>
-        <p class="module-desc">ให้การย้ายสำนักงานเป็นเรื่องง่ายและปลอดภัย ด้วยทีมงานมืออาชีพด้านไอที</p>
-        <ul class="spec-list">
-          <li>วางแผนและประเมินความเสี่ยงก่อนการย้าย</li>
-          <li>ถอด ติดตั้ง และเชื่อมต่อระบบใหม่ครบวงจร (Server, Network, PC, Printer)</li>
-          <li>ทดสอบระบบหลังย้ายเสร็จ พร้อมตรวจสอบความพร้อมใช้งาน</li>
-          <li>ให้บริการทั้งในเขตกรุงเทพฯ และต่างจังหวัด</li>
-        </ul>
-      </div>
-    </article>
-
+  <div class="filters" id="calcTabBar">
+    <button class="filter-btn active" data-tab="windows">Windows License</button>
+    <button class="filter-btn" data-tab="sql">SQL License</button>
+    <button class="filter-btn" data-tab="backup">Backup Storage</button>
+    <button class="filter-btn" data-tab="bandwidth">Bandwidth</button>
   </div>
+
+  <!-- ===== TAB 1: WINDOWS SERVER LICENSE ===== -->
+  <div class="calc-panel" data-panel="windows">
+  <div class="calc-shell hud">
+    <div class="calc-titlebar">
+      <span class="t">windows-license-calculator.exe — running</span>
+      <div class="calc-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="calc-inputs">
+      <div class="calc-h">ข้อมูลเซิร์ฟเวอร์</div>
+      <p class="calc-p">กรอกสเปกจริงของเซิร์ฟเวอร์ที่จะติดตั้ง Windows Server</p>
+
+      <div class="field">
+        <label>รุ่น Windows Server</label>
+        <div class="seg" id="editionSeg">
+          <button type="button" class="active" data-val="standard">Standard</button>
+          <button type="button" data-val="datacenter">Datacenter</button>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>จำนวน Physical Processor</label>
+          <input type="number" id="cpuCount" min="1" max="8" value="2">
+        </div>
+        <div class="field">
+          <label>Core ต่อ Processor</label>
+          <input type="number" id="coresPerCpu" min="1" max="128" value="8">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>จำนวน VM ที่ต้องการรันบนเครื่องนี้</label>
+        <input type="number" id="vmCount" min="1" max="200" value="2">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>จำนวนผู้ใช้ / อุปกรณ์ที่เข้าถึง</label>
+          <input type="number" id="calCount" min="0" max="10000" value="25">
+        </div>
+        <div class="field">
+          <label>ประเภท CAL</label>
+          <div class="seg" id="calSeg">
+            <button type="button" class="active" data-val="user">User CAL</button>
+            <button type="button" data-val="device">Device CAL</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-outputs">
+      <div class="readout-card">
+        <div class="rl">Core License ที่ต้องใช้</div>
+        <div class="rv" id="outCores">32<span>คอร์</span></div>
+        <div class="rd" id="outCoresDetail">ขายเป็นแพ็ก 2 คอร์ · ต้องซื้อ 16 แพ็ก</div>
+      </div>
+      <div class="readout-card">
+        <div class="rl" id="outVmLabel">รอบการไลเซนส์ (Standard)</div>
+        <div class="rv" id="outMultiplier">1<span>รอบ</span></div>
+        <div class="rd" id="outMultiplierDetail">รองรับ 2 VM ต่อ 1 รอบไลเซนส์เต็มเครื่อง</div>
+      </div>
+      <div class="readout-card">
+        <div class="rl">Client Access License (CAL)</div>
+        <div class="rv" id="outCal">25<span id="outCalUnit">User CAL</span></div>
+        <div class="rd">1 CAL ต่อผู้ใช้/อุปกรณ์ 1 ราย ไม่ขึ้นกับจำนวนเซิร์ฟเวอร์</div>
+      </div>
+      <div class="calc-note" id="calcWarning"></div>
+      <div class="calc-note">
+        * คำนวณตามกฎ Core-Based Licensing ของ Microsoft (ขั้นต่ำ 8 core/processor, ขั้นต่ำ 16 core/server, ขายเป็นแพ็ก 2 core) เพื่อการวางแผนเบื้องต้นเท่านั้น ไม่ใช่ใบเสนอราคาอย่างเป็นทางการ
+      </div>
+      <a href="#contact" class="btn btn-primary calc-cta">ขอใบเสนอราคาจากผลลัพธ์นี้ →</a>
+    </div>
+  </div>
+  </div>
+
+  <!-- ===== TAB 2: SQL SERVER LICENSE ===== -->
+  <div class="calc-panel" data-panel="sql" hidden>
+  <div class="calc-shell hud">
+    <div class="calc-titlebar">
+      <span class="t">sql-license-calculator.exe — running</span>
+      <div class="calc-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="calc-inputs">
+      <div class="calc-h">ข้อมูลเซิร์ฟเวอร์ SQL</div>
+      <p class="calc-p">SQL Server 2022 คิดค่าไลเซนส์แยกจาก Windows Server</p>
+
+      <div class="field">
+        <label>Edition</label>
+        <div class="seg" id="sqlEditionSeg">
+          <button type="button" class="active" data-val="standard">Standard</button>
+          <button type="button" data-val="enterprise">Enterprise</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>รูปแบบไลเซนส์</label>
+        <div class="seg" id="sqlModelSeg">
+          <button type="button" class="active" data-val="core">Per Core</button>
+          <button type="button" data-val="cal">Server + CAL</button>
+        </div>
+      </div>
+
+      <div class="field-row" id="sqlCoreFields">
+        <div class="field">
+          <label>จำนวน Physical Processor</label>
+          <input type="number" id="sqlCpuCount" min="1" max="8" value="1">
+        </div>
+        <div class="field">
+          <label>Core ต่อ Processor</label>
+          <input type="number" id="sqlCoresPerCpu" min="1" max="128" value="8">
+        </div>
+      </div>
+
+      <div class="field" id="sqlCalField" style="display:none;">
+        <label>จำนวนผู้ใช้ / อุปกรณ์ที่เข้าถึง (CAL)</label>
+        <input type="number" id="sqlCalCount" min="0" max="10000" value="20">
+      </div>
+    </div>
+
+    <div class="calc-outputs">
+      <div class="readout-card">
+        <div class="rl" id="sqlOutLabel">Core License ที่ต้องใช้</div>
+        <div class="rv" id="sqlOutMain">16<span>คอร์</span></div>
+        <div class="rd" id="sqlOutDetail">ขั้นต่ำ 4 คอร์/processor · ขายเป็นแพ็ก 2 คอร์ · ต้องซื้อ 8 แพ็ก</div>
+      </div>
+      <div class="readout-card" id="sqlCalCard">
+        <div class="rl">Server License</div>
+        <div class="rv">1<span>เครื่อง</span></div>
+        <div class="rd">ใช้ได้กับ Standard Edition เท่านั้น เหมาะกับผู้ใช้จำนวนจำกัด</div>
+      </div>
+      <div class="calc-note" id="sqlWarning"></div>
+      <div class="calc-note">
+        * Enterprise Edition รองรับเฉพาะ Per Core เท่านั้น ไม่มีตัวเลือก Server+CAL ตามนโยบายของ Microsoft ตัวเลขนี้ใช้เพื่อวางแผนเบื้องต้นเท่านั้น
+      </div>
+      <a href="#contact" class="btn btn-primary calc-cta">ขอใบเสนอราคาจากผลลัพธ์นี้ →</a>
+    </div>
+  </div>
+  </div>
+
+  <!-- ===== TAB 3: BACKUP STORAGE ===== -->
+  <div class="calc-panel" data-panel="backup" hidden>
+  <div class="calc-shell hud">
+    <div class="calc-titlebar">
+      <span class="t">backup-storage-calculator.exe — running</span>
+      <div class="calc-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="calc-inputs">
+      <div class="calc-h">ประเมินพื้นที่สำรองข้อมูล</div>
+      <p class="calc-p">ประมาณการพื้นที่ Storage ที่ต้องใช้สำหรับ Backup แบบ Incremental Forever</p>
+
+      <div class="field">
+        <label>ขนาดข้อมูลต้นทาง (GB)</label>
+        <input type="number" id="bkSize" min="1" value="500">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>อัตราการเปลี่ยนแปลงข้อมูล / วัน (%)</label>
+          <input type="number" id="bkChange" min="0" max="100" value="5" step="0.5">
+        </div>
+        <div class="field">
+          <label>ระยะเวลาเก็บ Retention (วัน)</label>
+          <input type="number" id="bkRetention" min="1" max="3650" value="30">
+        </div>
+      </div>
+      <div class="field">
+        <label>อัตราส่วนหลังบีบอัด/ลดข้อมูลซ้ำ (%)</label>
+        <input type="number" id="bkCompression" min="5" max="100" value="50">
+        <div class="calc-note" style="margin-top:8px;border-top:none;padding-top:0;">เช่น 50% หมายถึงข้อมูล 100GB เหลือ 50GB หลังบีบอัด/ลดข้อมูลซ้ำ</div>
+      </div>
+    </div>
+
+    <div class="calc-outputs">
+      <div class="readout-card">
+        <div class="rl">Full Backup ตัวแรก (หลังบีบอัด)</div>
+        <div class="rv" id="bkOutFull">250<span>GB</span></div>
+        <div class="rd">ขนาดหลังบีบอัด/ลดข้อมูลซ้ำครั้งแรก</div>
+      </div>
+      <div class="readout-card">
+        <div class="rl">ข้อมูล Incremental สะสมตลอด Retention</div>
+        <div class="rv" id="bkOutIncr">375<span>GB</span></div>
+        <div class="rd" id="bkOutIncrDetail">คำนวณจากอัตราเปลี่ยนแปลง × จำนวนวัน × อัตราบีบอัด</div>
+      </div>
+      <div class="readout-card">
+        <div class="rl">พื้นที่ Storage ที่ควรเตรียม</div>
+        <div class="rv" id="bkOutTotal">625<span>GB</span></div>
+        <div class="rd" id="bkOutTotalDetail">รวม Full + Incremental ทั้งหมด แนะนำเผื่อ Buffer เพิ่มอีก 20-30%</div>
+      </div>
+      <div class="calc-note">
+        * ประมาณการแบบง่ายสำหรับ Incremental Forever Backup ไม่รวมผลจาก GFS Retention, Active Full รายสัปดาห์/เดือน หรือ ReFS Block Cloning ซึ่งอาจลดพื้นที่ได้มากกว่านี้ ใช้เพื่อการวางแผนเบื้องต้นเท่านั้น
+      </div>
+      <a href="#contact" class="btn btn-primary calc-cta">ขอคำปรึกษาวางระบบ Backup →</a>
+    </div>
+  </div>
+  </div>
+
+  <!-- ===== TAB 4: BANDWIDTH ===== -->
+  <div class="calc-panel" data-panel="bandwidth" hidden>
+  <div class="calc-shell hud">
+    <div class="calc-titlebar">
+      <span class="t">bandwidth-calculator.exe — running</span>
+      <div class="calc-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="calc-inputs">
+      <div class="calc-h">ประเมินความต้องการ Bandwidth</div>
+      <p class="calc-p">คำนวณเวลาโอนไฟล์ และ Bandwidth ที่เว็บไซต์/ระบบต้องใช้ต่อเดือน</p>
+
+      <div class="field">
+        <label>ขนาดไฟล์ที่จะโอน</label>
+        <div class="field-row">
+          <input type="number" id="bwFileSize" min="0" value="10">
+          <select id="bwFileUnit">
+            <option value="1">MB</option>
+            <option value="1024" selected>GB</option>
+            <option value="1048576">TB</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>ความเร็วลิงก์อินเทอร์เน็ต</label>
+        <div class="field-row">
+          <input type="number" id="bwSpeed" min="0.1" value="100" step="0.1">
+          <select id="bwSpeedUnit">
+            <option value="1">Mbps</option>
+            <option value="1000" selected>Gbps</option>
+          </select>
+        </div>
+      </div>
+      <div class="field" style="margin-top:26px;padding-top:18px;border-top:1px solid var(--line);">
+        <label>Page View เฉลี่ยต่อวัน (สำหรับเว็บไซต์)</label>
+        <input type="number" id="bwPageViews" min="0" value="5000">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>ขนาดหน้าเว็บเฉลี่ย (MB)</label>
+          <input type="number" id="bwPageSize" min="0" value="3" step="0.1">
+        </div>
+        <div class="field">
+          <label>Redundancy Factor</label>
+          <input type="number" id="bwRedundancy" min="1" value="1.5" step="0.1">
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-outputs">
+      <div class="readout-card">
+        <div class="rl">เวลาที่ใช้โอนไฟล์</div>
+        <div class="rv" id="bwOutTime">00:00:14<span></span></div>
+        <div class="rd">ที่ความเร็วลิงก์ที่ระบุ (ไม่รวม overhead ของ protocol)</div>
+      </div>
+      <div class="readout-card">
+        <div class="rl">Bandwidth ขั้นต่ำที่เว็บไซต์ต้องใช้</div>
+        <div class="rv" id="bwOutMbps">3.47<span>Mbps</span></div>
+        <div class="rd">คำนวณจาก Page View × ขนาดหน้า × Redundancy Factor</div>
+      </div>
+      <div class="readout-card">
+        <div class="rl">ปริมาณข้อมูลโดยประมาณต่อเดือน</div>
+        <div class="rv" id="bwOutMonthly">1.13<span>TB</span></div>
+        <div class="rd">Data Transfer ที่ควรเผื่อไว้ในแพ็กเกจ Hosting/VPS</div>
+      </div>
+      <div class="calc-note">
+        * ตัวเลขเป็นการประมาณการ ความเร็วจริงขึ้นกับ Latency, Overhead ของ Protocol และสภาพเครือข่าย ณ ขณะนั้น
+      </div>
+      <a href="#contact" class="btn btn-primary calc-cta">ปรึกษาทีมงานเรื่อง Bandwidth →</a>
+    </div>
+  </div>
+  </div>
+
 </section>
 
-<section class="process" id="process">
-  <div class="process-inner">
+<section class="section-alt">
+  <div class="section" id="services">
     <div class="section-head">
       <div>
-        <div class="section-eyebrow">/ How We Work</div>
-        <h2 class="section-title">ขั้นตอนการทำงาน</h2>
+        <div class="eyebrow-sm">/ Service Catalogue</div>
+        <h2 class="section-title">บริการของเรา</h2>
       </div>
-      <p class="section-note">ทุกโปรเจกต์เริ่มจากการสำรวจหน้างานจริง ไม่ใช่การเสนอแพ็กเกจสำเร็จรูป</p>
+      <p class="section-note">ที่ Ninety-One Consulting เราเชื่อว่าเทคโนโลยีที่ดีควรช่วยให้ธุรกิจเติบโตอย่างยั่งยืน ด้วยบริการแบบ One-Stop Service</p>
     </div>
-    <div class="signal-path">
-      <div class="step">
-        <div class="step-node">01</div>
-        <h4>สำรวจหน้างาน</h4>
-        <p>วิศวกรลงพื้นที่ประเมินระบบเดิม ความต้องการ และข้อจำกัดด้านงบประมาณ</p>
+
+    <div class="filters" id="filterBar">
+      <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+      <button class="filter-btn" data-filter="infra">Infrastructure</button>
+      <button class="filter-btn" data-filter="cloud">Cloud</button>
+      <button class="filter-btn" data-filter="support">Support</button>
+    </div>
+
+    <div class="svc-grid" id="svcGrid">
+
+      <div class="svc-card" data-cat="infra">
+        <div class="svc-top"><span class="svc-tag">01 · INFRA</span><span class="svc-led"></span></div>
+        <h3>End-to-End IT Infrastructure Solutions</h3>
+        <div class="svc-tagline">ออกแบบ ติดตั้ง และให้คำปรึกษาโดยวิศวกรผู้เชี่ยวชาญ</div>
+        <p class="svc-desc">วางระบบโครงสร้างพื้นฐานไอทีตั้งแต่ต้นจนจบ ปรับให้เหมาะกับขนาดองค์กรและงบประมาณของแต่ละธุรกิจ</p>
+        <details>
+          <summary>รายละเอียด</summary>
+          <ul class="svc-list">
+            <li>วางระบบ Server, Storage และ Network สำหรับองค์กรทุกขนาด</li>
+            <li>ติดตั้งเครือข่ายไร้สาย (Wi-Fi) ความเร็วสูง รองรับการใช้งานหนาแน่น</li>
+            <li>ออกแบบระบบรักษาความปลอดภัย Firewall, VPN, Load Balancer</li>
+            <li>ปรับแต่งโซลูชันให้เหมาะกับงบประมาณและเป้าหมายธุรกิจ</li>
+          </ul>
+        </details>
       </div>
-      <div class="step">
-        <div class="step-node">02</div>
-        <h4>ออกแบบระบบ</h4>
-        <p>เสนอแบบโครงสร้างพร้อมสเปกอุปกรณ์และแผนงบประมาณที่ชัดเจนก่อนเริ่มงาน</p>
+
+      <div class="svc-card" data-cat="infra">
+        <div class="svc-top"><span class="svc-tag">02 · INFRA</span><span class="svc-led"></span></div>
+        <h3>IT Equipment Sales &amp; Rental</h3>
+        <div class="svc-tagline">จำหน่ายและให้เช่าอุปกรณ์ไอทีสำหรับองค์กร</div>
+        <p class="svc-desc">ครบวงจรทั้งฮาร์ดแวร์และโซลูชัน พร้อมบริการติดตั้งและดูแลหลังการขาย</p>
+        <details>
+          <summary>รายละเอียด</summary>
+          <ul class="svc-list">
+            <li>จำหน่าย Server, Storage, Firewall, Switch, Wireless AP</li>
+            <li>ให้เช่าอุปกรณ์ไอทีสำหรับโปรเจกต์ระยะสั้นหรืองานอีเวนต์</li>
+            <li>บริการ On-site Setup และ Remote Support</li>
+            <li>แพ็กเกจรายเดือน/รายปี พร้อมใบเสนอราคาอย่างเป็นทางการ</li>
+          </ul>
+        </details>
       </div>
-      <div class="step">
-        <div class="step-node">03</div>
-        <h4>ติดตั้งและทดสอบ</h4>
-        <p>ติดตั้งโดยทีมช่างมืออาชีพ พร้อมทดสอบระบบก่อนส่งมอบทุกครั้ง</p>
+
+      <div class="svc-card" data-cat="support">
+        <div class="svc-top"><span class="svc-tag">03 · SUPPORT</span><span class="svc-led"></span></div>
+        <h3>IT Managed Services &amp; Consulting</h3>
+        <div class="svc-tagline">เพราะเราไม่ได้แค่ "ติดตั้ง" แต่ยังพร้อม "ดูแล"</div>
+        <p class="svc-desc">ทีมงานพร้อมสนับสนุนตลอดอายุการใช้งานระบบ ไม่ใช่แค่วันที่ติดตั้งเสร็จ</p>
+        <details>
+          <summary>รายละเอียด</summary>
+          <ul class="svc-list">
+            <li>บริการ Managed Services และ MA (Maintenance Agreement)</li>
+            <li>ทีมงานให้คำแนะนำตลอดการใช้งาน</li>
+            <li>ตรวจเช็กสุขภาพระบบสม่ำเสมอ ป้องกันปัญหาก่อนเกิดจริง</li>
+          </ul>
+        </details>
       </div>
-      <div class="step">
-        <div class="step-node">04</div>
-        <h4>ดูแลต่อเนื่อง</h4>
-        <p>ตรวจเช็กสุขภาพระบบสม่ำเสมอ พร้อมทีมซัพพอร์ตตลอดอายุสัญญา</p>
+
+      <div class="svc-card" data-cat="cloud" id="cloud">
+        <div class="svc-top"><span class="svc-tag">04 · CLOUD</span><span class="svc-led"></span></div>
+        <h3>Cloud VPS SSD &amp; Dedicated Server</h3>
+        <div class="svc-tagline">ยืดหยุ่น ปลอดภัย พร้อมรองรับการขยายตัวของธุรกิจ</div>
+        <p class="svc-desc">โครงสร้าง Cloud และเซิร์ฟเวอร์กายภาพบน Data Center มาตรฐาน CS Loxinfo รับประกัน Uptime 99.9%</p>
+        <details>
+          <summary>รายละเอียด</summary>
+          <ul class="svc-list">
+            <li>Cloud VPS SSD บน DELL Server และ Samsung SSD ปรับขนาดทรัพยากรได้ตามใช้งานจริง</li>
+            <li>Dedicated Server เครื่องเต็มสำหรับงานที่ต้องการประสิทธิภาพสูง</li>
+            <li>บริหารจัดการผ่าน Control Panel พร้อม Daily Backup ย้อนหลังสูงสุด 5 วัน</li>
+            <li>ใช้ Hardware RAID-5 เพิ่มความเสถียร ป้องกันข้อมูลสูญหาย</li>
+            <li>รองรับหลาย OS: Windows, CentOS, Debian, Fedora, Ubuntu</li>
+          </ul>
+          <div class="tier-table-wrap">
+            <table class="tier-table">
+              <thead><tr><th>Plan</th><th>S1</th><th>S2</th><th>S3</th><th>S4</th><th>S5</th></tr></thead>
+              <tbody>
+                <tr><th>Core CPU</th><td>1</td><td>2</td><td>4</td><td>4</td><td>6</td></tr>
+                <tr><th>RAM</th><td>2GB</td><td>4GB</td><td>8GB</td><td>12GB</td><td>16GB</td></tr>
+                <tr><th>SSD</th><td>20GB</td><td>40GB</td><td>80GB</td><td>120GB</td><td>160GB</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
       </div>
+
+      <div class="svc-card" data-cat="cloud" id="vps-business">
+        <div class="svc-top"><span class="svc-tag">05 · CLOUD</span><span class="svc-led"></span></div>
+        <h3>Cloud VPS Business</h3>
+        <div class="svc-tagline">ทรัพยากรเต็มเครื่อง ไม่ต้องแชร์กับใคร</div>
+        <p class="svc-desc">เซิร์ฟเวอร์เสมือนระดับองค์กร ควบคุมได้อิสระเสมือนเป็นเจ้าของเครื่องเอง</p>
+        <details>
+          <summary>รายละเอียด</summary>
+          <ul class="svc-list">
+            <li>ควบคุมผ่าน Remote Desktop, SSH หรือ vSphere Web Client</li>
+            <li>ปรับแต่ง Configuration ของ OS และซอฟต์แวร์ได้เต็มที่</li>
+            <li>DELL Server + Samsung SSD พร้อม Hardware RAID-5</li>
+            <li>Backup อัตโนมัติทุกวัน ย้อนหลังสูงสุด 7 วัน</li>
+            <li>Public IP ส่วนตัว พร้อมเจ้าหน้าที่ดูแลตลอด 24/7/365</li>
+          </ul>
+        </details>
+      </div>
+
+      <div class="svc-card" data-cat="cloud" id="vps-forex">
+        <div class="svc-top"><span class="svc-tag">06 · CLOUD</span><span class="svc-led"></span></div>
+        <h3>Cloud VPS Forex</h3>
+        <div class="svc-tagline">เซิร์ฟเวอร์เฉพาะสาย Trading เปิด EA ได้ตลอด 24 ชม.</div>
+        <p class="svc-desc">ออกแบบมาสำหรับนักเทรดโดยเฉพาะ เชื่อมต่อตรงไปต่างประเทศ ไม่พลาดทุกคำสั่งเทรด</p>
+        <details>
+          <summary>รายละเอียด</summary>
+          <ul class="svc-list">
+            <li>รองรับ EA / EA Copy Trade / Backtest บน MT4, MT5, cTrader</li>
+            <li>รันได้ทุกโบรกเกอร์ เช่น XM, FBS, Vantage FX, Pepperstone, Exness</li>
+            <li>ทรัพยากรจัดสรรเต็มประสิทธิภาพ ไม่แบ่งผู้ใช้รายอื่น</li>
+            <li>ทำงานแทนคอมพิวเตอร์ตลอด 24 ชั่วโมง ไม่มีวันหยุด</li>
+          </ul>
+        </details>
+      </div>
+
+      <div class="svc-card" data-cat="cloud" id="dr-site">
+        <div class="svc-top"><span class="svc-tag">07 · CLOUD</span><span class="svc-led"></span></div>
+        <h3>Disaster Recovery Site &amp; Cloud Backup</h3>
+        <div class="svc-tagline">เตรียมพร้อมก่อนเกิดเหตุ ฉุกเฉินแค่ไหนธุรกิจก็ไม่หยุด</div>
+        <p class="svc-desc">แผนสำรองข้อมูลและการฟื้นฟูระบบแบบ Disaster Recovery as a Service</p>
+        <details>
+          <summary>รายละเอียด</summary>
+          <ul class="svc-list">
+            <li>สำรอง/กู้คืนได้ทั้ง Physical Server, Virtual Server, VMware, Hyper-V</li>
+            <li>กู้คืนระดับ File-based และ Volume-based พร้อม Encryption</li>
+            <li>สลับไปใช้งานระบบบน DR-Site ได้ทันทีเมื่อระบบหลัก Down</li>
+            <li>Data Center มาตรฐาน CS Loxinfo รับประกัน Uptime 99.9%</li>
+          </ul>
+          <div class="tier-table-wrap">
+            <table class="tier-table">
+              <thead><tr><th>Plan</th><th>DR-1</th><th>DR-2</th><th>DR-3</th><th>DR-4</th><th>DR-5</th></tr></thead>
+              <tbody>
+                <tr><th>Storage</th><td>200GB</td><td>500GB</td><td>1TB</td><td>1.5TB</td><td>2TB</td></tr>
+                <tr><th>Source Server</th><td>1</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+
+      <div class="svc-card" data-cat="cloud" id="storage">
+        <div class="svc-top"><span class="svc-tag">08 · CLOUD</span><span class="svc-led"></span></div>
+        <h3>Cloud Storage &amp; File Backup</h3>
+        <div class="svc-tagline">พื้นที่รับฝากข้อมูลบนคลาวด์ ตั้งอยู่ในประเทศไทย</div>
+        <p class="svc-desc">เก็บและแชร์ไฟล์องค์กรได้จากทุกอุปกรณ์ ปลอดภัย เข้าถึงง่าย</p>
+        <details>
+          <summary>รายละเอียด</summary>
+          <ul class="svc-list">
+            <li>เข้าถึงไฟล์ได้ทุกที่ ผ่าน Website, Windows, MAC, iOS, Android</li>
+            <li>แชร์ไฟล์แบบ Password Protected Sharing</li>
+            <li>ค้นหา/ดูตัวอย่าง/เรียกดูเวอร์ชันย้อนหลังได้</li>
+            <li>กู้คืนไฟล์ที่ลบไปแล้วได้ จัดเก็บบน RAID-10</li>
+          </ul>
+          <div class="tier-table-wrap">
+            <table class="tier-table">
+              <thead><tr><th>Plan</th><th>CS-100</th><th>CS-500</th><th>CS-1000</th><th>CS-1500</th><th>CS-2000</th></tr></thead>
+              <tbody><tr><th>Storage</th><td>100GB</td><td>500GB</td><td>1000GB</td><td>1500GB</td><td>2000GB</td></tr></tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+
+      <div class="svc-card" data-cat="cloud">
+        <div class="svc-top"><span class="svc-tag">09 · CLOUD</span><span class="svc-led"></span></div>
+        <h3>Cloud Web Hosting</h3>
+        <div class="svc-tagline">โฮสต์เว็บไซต์และอีเมลองค์กร บริหารเองผ่าน Control Panel</div>
+        <p class="svc-desc">บริการ Web Hosting ครบทั้งเว็บไซต์และอีเมล จัดการทุกอย่างได้เอง</p>
+        <details>
+          <summary>รายละเอียด</summary>
+          <ul class="svc-list">
+            <li>บริหารผ่าน DirectAdmin Control Panel ใช้งานง่าย</li>
+            <li>ไม่จำกัด Sub Domain และฐานข้อมูล MySQL</li>
+            <li>จัดการอีเมลได้เอง เพิ่ม/ลบ Account ได้ตามต้องการ</li>
+            <li>DELL Server พร้อม Hardware RAID-1</li>
+          </ul>
+        </details>
+      </div>
+
+      <div class="svc-card" data-cat="infra" id="it-solution">
+        <div class="svc-top"><span class="svc-tag">10 · INFRA</span><span class="svc-led"></span></div>
+        <h3>System Migration &amp; Virtualization</h3>
+        <div class="svc-tagline">ย้ายระบบขึ้น Cloud หรือ Private Cloud โดยไม่ให้ธุรกิจสะดุด</div>
+        <p class="svc-desc">ย้ายระบบจาก Server เครื่องเก่าไปสู่ Cloud หรือ VMware Private Cloud</p>
+        <details>
+          <summary>รายละเอียด</summary>
+          <ul class="svc-list">
+            <li>ย้ายระบบจาก Server เก่าไปไว้บน Cloud หรือ VMware (Private Cloud)</li>
+            <li>ย้ายข้ามผู้ให้บริการ Cloud เดิมได้โดยไม่มีค่าใช้จ่ายเพิ่ม</li>
+            <li>VMware Resource Pool และ ESXi บริหารทรัพยากรได้เอง</li>
+            <li>ติดตั้ง Firewall หรือ Virtual Firewall ป้องกันการบุกรุก</li>
+          </ul>
+        </details>
+      </div>
+
+      <div class="svc-card" data-cat="infra">
+        <div class="svc-top"><span class="svc-tag">11 · INFRA</span><span class="svc-led"></span></div>
+        <h3>Office IT Relocation Services</h3>
+        <div class="svc-tagline">บริการย้ายระบบไอทีและอุปกรณ์สำนักงานแบบครบวงจร</div>
+        <p class="svc-desc">ให้การย้ายสำนักงานเป็นเรื่องง่ายและปลอดภัย ด้วยทีมงานมืออาชีพ</p>
+        <details>
+          <summary>รายละเอียด</summary>
+          <ul class="svc-list">
+            <li>วางแผนและประเมินความเสี่ยงก่อนการย้าย</li>
+            <li>ถอด ติดตั้ง และเชื่อมต่อระบบใหม่ครบวงจร</li>
+            <li>ทดสอบระบบหลังย้ายเสร็จ พร้อมตรวจสอบความพร้อมใช้งาน</li>
+            <li>ให้บริการทั้งในเขตกรุงเทพฯ และต่างจังหวัด</li>
+          </ul>
+        </details>
+      </div>
+
     </div>
   </div>
 </section>
 
-<section class="about-section" id="about">
-  <div class="about-copy">
-    <div class="section-eyebrow">/ About Us</div>
-    <p>Ninety-One Consulting ก่อตั้งขึ้นจากความเชื่อว่า “เทคโนโลยีที่ดี” ไม่ใช่แค่การติดตั้งอุปกรณ์ให้ครบ แต่ต้องช่วยให้ธุรกิจเดินหน้าได้อย่างมั่นใจในระยะยาว</p>
-    <p>เราให้บริการแบบ One-Stop Service ครอบคลุมตั้งแต่การวางระบบ Server, Network และ Cloud ไปจนถึงแผนสำรองฉุกเฉินและการดูแลหลังการติดตั้ง โดยทีมวิศวกรที่ผ่านงานจริงกับองค์กรหลากหลายขนาด</p>
-    <p>นอกจากงานติดตั้งระบบหน้างาน เรายังให้บริการ Cloud VPS, Dedicated Server, Cloud Storage และ DR-Site บน Data Center มาตรฐาน CS Loxinfo ครบวงจรในทีมเดียวกัน เพื่อให้ลูกค้าไม่ต้องประสานงานหลายเจ้าสำหรับงานไอทีขององค์กร</p>
-    <p>เราเชื่อในการทำงานแบบโปร่งใส เสนอราคาชัดเจนตั้งแต่ต้น และอยู่เคียงข้างลูกค้าแม้หลังส่งมอบงานแล้ว เพราะระบบไอทีที่ดีต้องพร้อมใช้งานทุกวัน ไม่ใช่แค่วันที่ติดตั้งเสร็จ</p>
-    <div class="cert-block">
+<section class="section" id="process">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow-sm">/ How We Work</div>
+      <h2 class="section-title">ขั้นตอนการทำงาน</h2>
+    </div>
+    <p class="section-note">ทุกโปรเจกต์เริ่มจากการสำรวจหน้างานจริง ไม่ใช่การเสนอแพ็กเกจสำเร็จรูป</p>
+  </div>
+  <div class="signal">
+    <div class="step"><div class="step-node">01</div><h4>สำรวจหน้างาน</h4><p>วิศวกรลงพื้นที่ประเมินระบบเดิม ความต้องการ และงบประมาณ</p></div>
+    <div class="step"><div class="step-node">02</div><h4>ออกแบบระบบ</h4><p>เสนอแบบโครงสร้างพร้อมสเปกอุปกรณ์และแผนงบประมาณที่ชัดเจน</p></div>
+    <div class="step"><div class="step-node">03</div><h4>ติดตั้งและทดสอบ</h4><p>ติดตั้งโดยทีมช่างมืออาชีพ พร้อมทดสอบระบบก่อนส่งมอบทุกครั้ง</p></div>
+    <div class="step"><div class="step-node">04</div><h4>ดูแลต่อเนื่อง</h4><p>ตรวจเช็กสุขภาพระบบสม่ำเสมอ พร้อมทีมซัพพอร์ตตลอดอายุสัญญา</p></div>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="section about-grid" id="about">
+    <div class="about-copy">
+      <div class="eyebrow-sm">/ About Us</div>
+      <p>Ninety-One Consulting ก่อตั้งขึ้นจากความเชื่อว่า "เทคโนโลยีที่ดี" ไม่ใช่แค่การติดตั้งอุปกรณ์ให้ครบ แต่ต้องช่วยให้ธุรกิจเดินหน้าได้อย่างมั่นใจในระยะยาว</p>
+      <p>เราให้บริการแบบ One-Stop Service ครอบคลุมตั้งแต่การวางระบบ Server, Network และ Cloud ไปจนถึงแผนสำรองฉุกเฉินและการดูแลหลังการติดตั้ง โดยทีมวิศวกรที่ผ่านงานจริงกับองค์กรหลากหลายขนาด</p>
+      <p>นอกจากงานติดตั้งระบบหน้างาน เรายังให้บริการ Cloud VPS, Dedicated Server, Cloud Storage และ DR-Site บน Data Center มาตรฐาน CS Loxinfo ครบวงจรในทีมเดียวกัน</p>
+      <p>เราเชื่อในการทำงานแบบโปร่งใส เสนอราคาชัดเจนตั้งแต่ต้น และอยู่เคียงข้างลูกค้าแม้หลังส่งมอบงานแล้ว</p>
       <div class="cert-label">Certified Team</div>
       <div class="cert-badges">
         <span class="cert-badge">Microsoft MCSA / MCITP / MCP / MCTS</span>
@@ -923,222 +945,183 @@
         <span class="cert-badge">Arcserve UDP Technical Associate</span>
       </div>
     </div>
-  </div>
-  <div class="about-side">
-    <img class="datacenter-photo frame" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/moveupcloud_datacenter-servers-2.jpg" alt="Data Center Servers" loading="lazy">
-    <div class="spec-sheet frame">
-      <div class="spec-sheet-head">Company Spec Sheet</div>
-      <div class="spec-row"><span>ก่อตั้ง</span><span>2013</span></div>
-      <div class="spec-row"><span>ประสบการณ์รวม</span><span>10+ ปี</span></div>
-      <div class="spec-row"><span>บริการหลัก</span><span>11 หมวด</span></div>
-      <div class="spec-row"><span>Data Center</span><span>CS Loxinfo · Uptime 99.9%</span></div>
-      <div class="spec-row"><span>พื้นที่ให้บริการ</span><span>กรุงเทพฯ + ต่างจังหวัด</span></div>
-      <div class="spec-row"><span>ซัพพอร์ต</span><span>Remote + On-site 24/7</span></div>
-      <div class="spec-row"><span>สถานะระบบ</span><span style="color:#4CD787">● Operational</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="clients" id="clients">
-  <div class="clients-inner">
-    <div class="section-head">
-      <div>
-        <div class="section-eyebrow">/ Trusted By</div>
-        <h2 class="section-title">องค์กรที่เคยไว้วางใจเรา</h2>
-      </div>
-      <p class="section-note">ทีม Ninety-One Consulting เคยออกแบบและติดตั้งระบบ Server, Storage, Network และ Private Cloud ให้กับหน่วยงานภาครัฐและเอกชนหลายแห่ง</p>
-    </div>
-    <div class="logo-wall">
-      <img class="logo-item" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/royalthaipolice.png" alt="สำนักงานตำรวจแห่งชาติ" loading="lazy">
-      <img class="logo-item" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/bananastore.png" alt="Banana IT" loading="lazy">
-      <img class="logo-item" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/comseven.png" alt="Comseven" loading="lazy">
-      <img class="logo-item" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/studio7-logo-520x156.png" alt="Studio7" loading="lazy">
-      <img class="logo-item" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/itecsoftware.png" alt="ITEC Software" loading="lazy">
-      <img class="logo-item" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/secret-recipe-logo-vector-720x340.png" alt="Secret Recipe" loading="lazy">
-    </div>
-    <div class="trusted-grid">
-      <div class="trusted-item">การทางพิเศษแห่งประเทศไทย</div>
-      <div class="trusted-item">กสทช.</div>
-      <div class="trusted-item">สำนักงานเลขาธิการสภาผู้แทนราษฎร</div>
-      <div class="trusted-item">สำนักงานปลัดกระทรวงคมนาคม</div>
-      <div class="trusted-item">กรมทางหลวง</div>
-      <div class="trusted-item">บมจ. กสท โทรคมนาคม (CAT)</div>
-      <div class="trusted-item">บมจ. ทีโอที (TOT)</div>
-      <div class="trusted-item">สำนักงานตำรวจแห่งชาติ</div>
-      <div class="trusted-item">กองบังคับการตำรวจจราจร</div>
-      <div class="trusted-item">การไฟฟ้าส่วนภูมิภาค</div>
-      <div class="trusted-item">การประปาส่วนภูมิภาค</div>
-      <div class="trusted-item">ทางหลวงพิเศษหมายเลข 7</div>
-    </div>
-
-    <div class="case-grid">
-      <div class="case-card">
-        <span class="case-tag">Manufacturing</span>
-        <h4>วางระบบเครือข่ายโรงงานผลิต</h4>
-        <p>ปรับปรุงระบบ Network และ Wi-Fi ครอบคลุมพื้นที่โรงงานที่มีสัญญาณรบกวนสูง พร้อมระบบ Firewall แยกโซนการผลิต</p>
-        <div class="case-metric"><b>99.9%</b><span>UPTIME หลังปรับระบบ</span></div>
-      </div>
-      <div class="case-card">
-        <span class="case-tag">Healthcare</span>
-        <h4>DR Site สำหรับเครือข่ายคลินิก</h4>
-        <p>ออกแบบแผนสำรองข้อมูลและศูนย์ข้อมูลสำรอง ให้ระบบเวชระเบียนพร้อมใช้งานแม้ระบบหลักล่ม</p>
-        <div class="case-metric"><b>&lt;15 นาที</b><span>เวลากู้คืนระบบ</span></div>
-      </div>
-      <div class="case-card">
-        <span class="case-tag">Finance</span>
-        <h4>ย้ายสำนักงานแบบไม่หยุดระบบ</h4>
-        <p>วางแผนและย้ายระบบ Server และเครือข่ายสำนักงานทั้งหมด ให้พร้อมใช้งานภายในคืนเดียว</p>
-        <div class="case-metric"><b>0</b><span>ชั่วโมงระบบล่มระหว่างเวลาทำการ</span></div>
+    <div class="about-side">
+      <img class="dc-photo hud" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/moveupcloud_datacenter-servers-2.jpg" alt="Data Center Servers" loading="lazy">
+      <div class="spec-sheet hud">
+        <div class="spec-head">Company Spec Sheet</div>
+        <div class="spec-row"><span>ก่อตั้ง</span><span>2013</span></div>
+        <div class="spec-row"><span>ประสบการณ์รวม</span><span>10+ ปี</span></div>
+        <div class="spec-row"><span>บริการหลัก</span><span>11 หมวด</span></div>
+        <div class="spec-row"><span>Data Center</span><span>CS Loxinfo · 99.9%</span></div>
+        <div class="spec-row"><span>พื้นที่บริการ</span><span>กรุงเทพฯ + ต่างจังหวัด</span></div>
+        <div class="spec-row"><span>ซัพพอร์ต</span><span>Remote + On-site 24/7</span></div>
+        <div class="spec-row"><span>สถานะระบบ</span><span style="color:#34F5A6">● Operational</span></div>
       </div>
     </div>
-    <div class="case-note">* รายชื่อองค์กรด้านบนเป็นข้อมูลลูกค้าจริงจากผลงานที่ผ่านมา ส่วนการ์ดผลงานด้านล่างเป็นตัวอย่างโครงร่างงาน แนะนำให้แทนที่ด้วยรายละเอียดโครงการจริงเมื่อมีข้อมูล</div>
   </div>
 </section>
 
-<section class="testimonials" id="testimonials">
+<section class="section" id="clients">
   <div class="section-head">
     <div>
-      <div class="section-eyebrow">/ Testimonials</div>
-      <h2 class="section-title">เสียงจากลูกค้า</h2>
+      <div class="eyebrow-sm">/ Trusted By</div>
+      <h2 class="section-title">องค์กรที่เคยไว้วางใจเรา</h2>
     </div>
-    <p class="section-note">ความคิดเห็นจากทีมงานที่เคยใช้บริการ</p>
+    <p class="section-note">ทีม Ninety-One Consulting เคยออกแบบและติดตั้งระบบ Server, Storage, Network และ Private Cloud ให้กับหน่วยงานภาครัฐและเอกชนหลายแห่ง</p>
   </div>
-  <div class="testi-grid">
-    <div class="testi-card">
-      <div class="testi-mark">“</div>
-      <p class="testi-quote">ทีมงานตอบไวและอธิบายเรื่องเทคนิคให้เข้าใจง่าย ไม่ทิ้งงานหลังติดตั้งเสร็จเหมือนเจ้าอื่นที่เคยใช้มา</p>
-      <div class="testi-who">
-        <div class="testi-avatar">IT</div>
-        <div><b>ผู้จัดการฝ่ายไอที</b><span>ธุรกิจการผลิต</span></div>
-      </div>
+  <div class="logo-wall">
+    <img class="logo-item" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/royalthaipolice.png" alt="สำนักงานตำรวจแห่งชาติ" loading="lazy">
+    <img class="logo-item" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/bananastore.png" alt="Banana IT" loading="lazy">
+    <img class="logo-item" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/comseven.png" alt="Comseven" loading="lazy">
+    <img class="logo-item" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/studio7-logo-520x156.png" alt="Studio7" loading="lazy">
+    <img class="logo-item" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/itecsoftware.png" alt="ITEC Software" loading="lazy">
+    <img class="logo-item" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/secret-recipe-logo-vector-720x340.png" alt="Secret Recipe" loading="lazy">
+  </div>
+  <div class="trusted-grid">
+    <div class="trusted-item">การทางพิเศษแห่งประเทศไทย</div>
+    <div class="trusted-item">กสทช.</div>
+    <div class="trusted-item">สำนักงานเลขาธิการสภาผู้แทนราษฎร</div>
+    <div class="trusted-item">สำนักงานปลัดกระทรวงคมนาคม</div>
+    <div class="trusted-item">กรมทางหลวง</div>
+    <div class="trusted-item">บมจ. กสท โทรคมนาคม (CAT)</div>
+    <div class="trusted-item">บมจ. ทีโอที (TOT)</div>
+    <div class="trusted-item">สำนักงานตำรวจแห่งชาติ</div>
+    <div class="trusted-item">กองบังคับการตำรวจจราจร</div>
+    <div class="trusted-item">การไฟฟ้าส่วนภูมิภาค</div>
+    <div class="trusted-item">การประปาส่วนภูมิภาค</div>
+    <div class="trusted-item">ทางหลวงพิเศษหมายเลข 7</div>
+  </div>
+  <div class="case-grid">
+    <div class="case-card">
+      <span class="case-tag">Manufacturing</span>
+      <h4>วางระบบเครือข่ายโรงงานผลิต</h4>
+      <p>ปรับปรุงระบบ Network และ Wi-Fi ครอบคลุมพื้นที่โรงงานที่มีสัญญาณรบกวนสูง พร้อมระบบ Firewall แยกโซนการผลิต</p>
+      <div class="case-metric"><b>99.9%</b><span>UPTIME หลังปรับระบบ</span></div>
     </div>
-    <div class="testi-card">
-      <div class="testi-mark">“</div>
-      <p class="testi-quote">เคยใช้ VPS ต่างประเทศแล้วโดนคิดค่า Traffic จากการโจมตีของแฮกเกอร์ไปด้วย พอย้ายมาใช้ SSD VPS ของทีมนี้ ประสิทธิภาพเกินคาด เว็บโหลดไวขึ้นชัดเจน อันดับ Google ก็ดีขึ้นตามไปด้วย ติดต่อทีมงานผ่าน Line ได้ทันทีเวลามีปัญหา</p>
-      <div class="testi-who">
-        <img class="testi-avatar testi-avatar-img" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/kachar.jpeg" alt="คชา กันยาหลง">
-        <div><b>คชา กันยาหลง</b><span>Founder — Jupiter Software Limited</span></div>
-      </div>
+    <div class="case-card">
+      <span class="case-tag">Healthcare</span>
+      <h4>DR Site สำหรับเครือข่ายคลินิก</h4>
+      <p>ออกแบบแผนสำรองข้อมูลและศูนย์ข้อมูลสำรอง ให้ระบบเวชระเบียนพร้อมใช้งานแม้ระบบหลักล่ม</p>
+      <div class="case-metric"><b>&lt;15 นาที</b><span>เวลากู้คืนระบบ</span></div>
     </div>
-    <div class="testi-card">
-      <div class="testi-mark">“</div>
-      <p class="testi-quote">แผน DR Site ที่วางไว้ช่วยได้จริงตอนไฟดับที่สำนักงานใหญ่ ระบบสลับไปทำงานสำรองได้แทบไม่มีสะดุด</p>
-      <div class="testi-who">
-        <div class="testi-avatar">CO</div>
-        <div><b>ผู้ดูแลระบบ</b><span>คลินิกเครือข่าย</span></div>
-      </div>
+    <div class="case-card">
+      <span class="case-tag">Finance</span>
+      <h4>ย้ายสำนักงานแบบไม่หยุดระบบ</h4>
+      <p>วางแผนและย้ายระบบ Server และเครือข่ายสำนักงานทั้งหมด ให้พร้อมใช้งานภายในคืนเดียว</p>
+      <div class="case-metric"><b>0</b><span>ชั่วโมงระบบล่มระหว่างเวลาทำการ</span></div>
     </div>
   </div>
+  <div class="case-note">* รายชื่อองค์กรด้านบนเป็นข้อมูลลูกค้าจริงจากผลงานที่ผ่านมา ส่วนการ์ดผลงานด้านล่างเป็นตัวอย่างโครงร่างงาน แนะนำให้แทนที่ด้วยรายละเอียดโครงการจริงเมื่อมีข้อมูล</div>
 </section>
 
-<section class="faq" id="faq">
-  <div class="faq-inner">
+<section class="section-alt">
+  <div class="section" id="testimonials">
     <div class="section-head">
-      <div>
-        <div class="section-eyebrow">/ FAQ</div>
-        <h2 class="section-title">คำถามที่พบบ่อย</h2>
-      </div>
+      <div><div class="eyebrow-sm">/ Testimonials</div><h2 class="section-title">เสียงจากลูกค้า</h2></div>
+      <p class="section-note">ความคิดเห็นจากทีมงานที่เคยใช้บริการ</p>
     </div>
-    <div class="faq-list">
-      <details class="faq-item">
-        <summary>ข้อมูลบน Cloud Storage และ Server ปลอดภัยแค่ไหน?</summary>
-        <p>ระบบทั้งหมดตั้งอยู่บน Data Center มาตรฐาน CS Loxinfo รับประกัน Uptime 99.9% ป้องกันข้อมูลสูญหายด้วย Hardware RAID และมีระบบ Backup อัตโนมัติทุกวัน พร้อมทีมงานดูแลระบบตลอด 24 ชั่วโมง</p>
-      </details>
-      <details class="faq-item" open>
-        <summary>ให้บริการนอกพื้นที่กรุงเทพฯ ด้วยหรือไม่?</summary>
-        <p>ให้บริการทั้งในเขตกรุงเทพฯ และต่างจังหวัด งานติดตั้งหน้างานและ On-site Support ครอบคลุมทั่วประเทศ ขึ้นอยู่กับขอบเขตของแต่ละโปรเจกต์</p>
-      </details>
-      <details class="faq-item">
-        <summary>มีค่าใช้จ่ายในการให้คำปรึกษาเบื้องต้นหรือไม่?</summary>
-        <p>ไม่มีค่าใช้จ่าย ทีมวิศวกรจะเข้าไปประเมินหน้างานและเสนอแนวทางเบื้องต้นให้ก่อน จึงจะสรุปขอบเขตงานและใบเสนอราคาอย่างเป็นทางการ</p>
-      </details>
-      <details class="faq-item">
-        <summary>Managed Services กับ MA (Maintenance Agreement) ต่างกันอย่างไร?</summary>
-        <p>MA คือสัญญาดูแลบำรุงรักษาอุปกรณ์ตามรอบเวลา ส่วน Managed Services ครอบคลุมกว้างกว่า คือการดูแลระบบเชิงรุกต่อเนื่อง ตรวจสุขภาพระบบ และให้คำปรึกษาระหว่างการใช้งาน</p>
-      </details>
-      <details class="faq-item">
-        <summary>เช่าอุปกรณ์ไอทีสำหรับงานอีเวนต์ระยะสั้นได้หรือไม่?</summary>
-        <p>ได้ มีบริการให้เช่าอุปกรณ์ไอทีสำหรับโปรเจกต์ระยะสั้นหรืองานอีเวนต์ พร้อมบริการติดตั้งหน้างานและซัพพอร์ตระหว่างงาน</p>
-      </details>
-      <details class="faq-item">
-        <summary>หากระบบมีปัญหานอกเวลาทำการ ติดต่อได้อย่างไร?</summary>
-        <p>ลูกค้าที่มีสัญญา MA หรือ Managed Services จะมีช่องทางติดต่อทีมซัพพอร์ตโดยเฉพาะ สามารถแจ้งปัญหาได้ตลอด 24 ชั่วโมง</p>
-      </details>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-mark">"</div>
+        <p class="testi-quote">ทีมงานตอบไวและอธิบายเรื่องเทคนิคให้เข้าใจง่าย ไม่ทิ้งงานหลังติดตั้งเสร็จเหมือนเจ้าอื่นที่เคยใช้มา</p>
+        <div class="testi-who"><div class="testi-avatar">IT</div><div><b>ผู้จัดการฝ่ายไอที</b><span>ธุรกิจการผลิต</span></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-mark">"</div>
+        <p class="testi-quote">เคยใช้ VPS ต่างประเทศแล้วโดนคิดค่า Traffic จากการโจมตีของแฮกเกอร์ไปด้วย พอย้ายมาใช้ SSD VPS ของทีมนี้ ประสิทธิภาพเกินคาด เว็บโหลดไวขึ้นชัดเจน ติดต่อทีมงานได้ทันทีเวลามีปัญหา</p>
+        <div class="testi-who">
+          <img class="testi-avatar testi-avatar-img" src="https://www.moveupcloud.com/wp-content/uploads/2018/05/kachar.jpeg" alt="คชา กันยาหลง">
+          <div><b>คชา กันยาหลง</b><span>Founder — Jupiter Software Limited</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-mark">"</div>
+        <p class="testi-quote">แผน DR Site ที่วางไว้ช่วยได้จริงตอนไฟดับที่สำนักงานใหญ่ ระบบสลับไปทำงานสำรองได้แทบไม่มีสะดุด</p>
+        <div class="testi-who"><div class="testi-avatar">CO</div><div><b>ผู้ดูแลระบบ</b><span>คลินิกเครือข่าย</span></div></div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="contact-wrap" id="contact">
-  <div class="contact-info">
-    <div class="section-eyebrow">/ Get In Touch</div>
-    <h2>พร้อมคุยเรื่องระบบไอทีของคุณหรือยัง?</h2>
-    <p>ทีมวิศวกรของเราพร้อมประเมินหน้างานและเสนอแนวทางที่เหมาะกับธุรกิจคุณ ไม่มีค่าใช้จ่ายในการให้คำปรึกษาเบื้องต้น</p>
-    <div class="contact-detail">
-      <div class="contact-detail-label">ฝ่ายขาย</div>
-      <div class="contact-detail-val">sale@91-consulting.com</div>
-    </div>
-    <div class="contact-detail">
-      <div class="contact-detail-label">ฝ่ายเทคนิค</div>
-      <div class="contact-detail-val">support@91-consulting.com</div>
-    </div>
-    <div class="contact-detail">
-      <div class="contact-detail-label">สำนักงาน</div>
-      <div class="contact-detail-val">063-343-9100</div>
-    </div>
-    <div class="contact-detail">
-      <div class="contact-detail-label">พื้นที่บริการ</div>
-      <div class="contact-detail-val">กรุงเทพฯ และต่างจังหวัด</div>
-    </div>
+<section class="section" id="faq">
+  <div class="section-head">
+    <div><div class="eyebrow-sm">/ FAQ</div><h2 class="section-title">คำถามที่พบบ่อย</h2></div>
   </div>
-  <form class="contact-form frame" action="mailto:sale@91-consulting.com" method="post" enctype="text/plain">
-    <div class="form-row">
-      <div class="form-field">
-        <label for="f-name">ชื่อ-นามสกุล</label>
-        <input id="f-name" name="ชื่อ" type="text" required>
-      </div>
-      <div class="form-field">
-        <label for="f-company">บริษัท</label>
-        <input id="f-company" name="บริษัท" type="text">
-      </div>
+  <div class="faq-list">
+    <details class="faq-item" open>
+      <summary>ข้อมูลบน Cloud Storage และ Server ปลอดภัยแค่ไหน?<span class="faq-icon">+</span></summary>
+      <p>ระบบทั้งหมดตั้งอยู่บน Data Center มาตรฐาน CS Loxinfo รับประกัน Uptime 99.9% ป้องกันข้อมูลสูญหายด้วย Hardware RAID และมีระบบ Backup อัตโนมัติทุกวัน พร้อมทีมงานดูแลระบบตลอด 24 ชั่วโมง</p>
+    </details>
+    <details class="faq-item">
+      <summary>เครื่องคำนวณ License คำนวณแม่นยำแค่ไหน?<span class="faq-icon">+</span></summary>
+      <p>คำนวณตามกฎ Core-Based Licensing ที่ Microsoft เผยแพร่เป็นสาธารณะ (ขั้นต่ำ 8 core ต่อ processor, ขั้นต่ำ 16 core ต่อเครื่อง) ใช้สำหรับวางแผนงบประมาณเบื้องต้น ราคาจริงและเงื่อนไข Software Assurance อาจแตกต่างกันตามผู้จำหน่าย แนะนำให้ติดต่อทีมงานเพื่อขอใบเสนอราคาที่แม่นยำ</p>
+    </details>
+    <details class="faq-item">
+      <summary>ให้บริการนอกพื้นที่กรุงเทพฯ ด้วยหรือไม่?<span class="faq-icon">+</span></summary>
+      <p>ให้บริการทั้งในเขตกรุงเทพฯ และต่างจังหวัด งานติดตั้งหน้างานและ On-site Support ครอบคลุมทั่วประเทศ ขึ้นอยู่กับขอบเขตของแต่ละโปรเจกต์</p>
+    </details>
+    <details class="faq-item">
+      <summary>มีค่าใช้จ่ายในการให้คำปรึกษาเบื้องต้นหรือไม่?<span class="faq-icon">+</span></summary>
+      <p>ไม่มีค่าใช้จ่าย ทีมวิศวกรจะเข้าไปประเมินหน้างานและเสนอแนวทางเบื้องต้นให้ก่อน จึงจะสรุปขอบเขตงานและใบเสนอราคาอย่างเป็นทางการ</p>
+    </details>
+    <details class="faq-item">
+      <summary>Managed Services กับ MA (Maintenance Agreement) ต่างกันอย่างไร?<span class="faq-icon">+</span></summary>
+      <p>MA คือสัญญาดูแลบำรุงรักษาอุปกรณ์ตามรอบเวลา ส่วน Managed Services ครอบคลุมกว้างกว่า คือการดูแลระบบเชิงรุกต่อเนื่อง ตรวจสุขภาพระบบ และให้คำปรึกษาระหว่างการใช้งาน</p>
+    </details>
+    <details class="faq-item">
+      <summary>หากระบบมีปัญหานอกเวลาทำการ ติดต่อได้อย่างไร?<span class="faq-icon">+</span></summary>
+      <p>ลูกค้าที่มีสัญญา MA หรือ Managed Services จะมีช่องทางติดต่อทีมซัพพอร์ตโดยเฉพาะ สามารถแจ้งปัญหาได้ตลอด 24 ชั่วโมง</p>
+    </details>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="section contact-grid" id="contact">
+    <div class="contact-info">
+      <div class="eyebrow-sm">/ Get In Touch</div>
+      <h2>พร้อมคุยเรื่องระบบไอทีของคุณหรือยัง?</h2>
+      <p>ทีมวิศวกรของเราพร้อมประเมินหน้างานและเสนอแนวทางที่เหมาะกับธุรกิจคุณ ไม่มีค่าใช้จ่ายในการให้คำปรึกษาเบื้องต้น</p>
+      <div class="contact-detail"><div class="contact-detail-label">ฝ่ายขาย</div><div class="contact-detail-val">sale@91-consulting.com</div></div>
+      <div class="contact-detail"><div class="contact-detail-label">ฝ่ายเทคนิค</div><div class="contact-detail-val">support@91-consulting.com</div></div>
+      <div class="contact-detail"><div class="contact-detail-label">สำนักงาน</div><div class="contact-detail-val">063-343-9100</div></div>
+      <div class="contact-detail"><div class="contact-detail-label">พื้นที่บริการ</div><div class="contact-detail-val">กรุงเทพฯ และต่างจังหวัด</div></div>
     </div>
-    <div class="form-row">
-      <div class="form-field">
-        <label for="f-phone">เบอร์โทร</label>
-        <input id="f-phone" name="เบอร์โทร" type="tel" required>
+    <form class="contact-form hud" action="mailto:sale@91-consulting.com" method="post" enctype="text/plain">
+      <div class="form-row">
+        <div class="form-field"><label for="f-name">ชื่อ-นามสกุล</label><input id="f-name" name="ชื่อ" type="text" required></div>
+        <div class="form-field"><label for="f-company">บริษัท</label><input id="f-company" name="บริษัท" type="text"></div>
       </div>
-      <div class="form-field">
-        <label for="f-email">อีเมล</label>
-        <input id="f-email" name="อีเมล" type="email" required>
+      <div class="form-row">
+        <div class="form-field"><label for="f-phone">เบอร์โทร</label><input id="f-phone" name="เบอร์โทร" type="tel" required></div>
+        <div class="form-field"><label for="f-email">อีเมล</label><input id="f-email" name="อีเมล" type="email" required></div>
       </div>
-    </div>
-    <div class="form-row">
-      <div class="form-field full">
-        <label for="f-service">บริการที่สนใจ</label>
-        <select id="f-service" name="บริการที่สนใจ">
-          <option>End-to-End IT Infrastructure Solutions</option>
-          <option>IT Equipment Sales &amp; Rental</option>
-          <option>IT Managed Services &amp; Consulting</option>
-          <option>Cloud VPS SSD &amp; Dedicated Server</option>
-          <option>Cloud VPS Business</option>
-          <option>Cloud VPS Forex</option>
-          <option>Disaster Recovery Site (DR Site)</option>
-          <option>Cloud Storage &amp; File Backup</option>
-          <option>Cloud Web Hosting</option>
-          <option>System Migration &amp; Virtualization</option>
-          <option>Office IT Relocation Services</option>
-          <option>อื่น ๆ / ยังไม่แน่ใจ</option>
-        </select>
+      <div class="form-row">
+        <div class="form-field full">
+          <label for="f-service">บริการที่สนใจ</label>
+          <select id="f-service" name="บริการที่สนใจ">
+            <option>End-to-End IT Infrastructure Solutions</option>
+            <option>IT Equipment Sales &amp; Rental</option>
+            <option>IT Managed Services &amp; Consulting</option>
+            <option>Cloud VPS SSD &amp; Dedicated Server</option>
+            <option>Cloud VPS Business</option>
+            <option>Cloud VPS Forex</option>
+            <option>Disaster Recovery Site (DR Site)</option>
+            <option>Cloud Storage &amp; File Backup</option>
+            <option>Cloud Web Hosting</option>
+            <option>System Migration &amp; Virtualization</option>
+            <option>Office IT Relocation Services</option>
+            <option>Windows Server License (จากผลคำนวณ)</option>
+            <option>อื่น ๆ / ยังไม่แน่ใจ</option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div class="form-row">
-      <div class="form-field full">
-        <label for="f-message">รายละเอียดงาน</label>
-        <textarea id="f-message" name="รายละเอียดงาน" placeholder="เล่าคร่าว ๆ ว่าต้องการระบบแบบไหน หรือมีปัญหาอะไรอยู่"></textarea>
+      <div class="form-row">
+        <div class="form-field full"><label for="f-message">รายละเอียดงาน</label><textarea id="f-message" name="รายละเอียดงาน" placeholder="เล่าคร่าว ๆ ว่าต้องการระบบแบบไหน หรือมีปัญหาอะไรอยู่"></textarea></div>
       </div>
-    </div>
-    <button type="submit" class="btn btn-primary form-submit">ส่งข้อความถึงเรา →</button>
-    <div class="form-note">* ฟอร์มนี้เปิดโปรแกรมอีเมลของคุณเพื่อส่งข้อความ หากต้องการฟอร์มที่ส่งเข้าระบบโดยตรงจำเป็นต้องเชื่อมต่อบริการฟอร์ม เช่น Cloudflare Pages Functions หรือ Formspree เพิ่มเติม</div>
-  </form>
+      <button type="submit" class="btn btn-primary form-submit">ส่งข้อความถึงเรา →</button>
+      <div class="form-note">* ฟอร์มนี้เปิดโปรแกรมอีเมลของคุณเพื่อส่งข้อความ หากต้องการฟอร์มที่ส่งเข้าระบบโดยตรงจำเป็นต้องเชื่อมต่อบริการฟอร์มเพิ่มเติม</div>
+    </form>
+  </div>
 </section>
 
 <footer>
@@ -1153,7 +1136,7 @@
         <a href="#cloud">Cloud VPS</a>
         <a href="#storage">Storage</a>
         <a href="#dr-site">DR-Site</a>
-        <a href="#it-solution">IT Solution</a>
+        <a href="#calculator">Calculator</a>
         <a href="#about">About Us</a>
         <a href="#clients">Case Studies</a>
         <a href="#faq">FAQ</a>
@@ -1162,16 +1145,243 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 NINETY-ONE CONSULTING CO.,LTD. — ALL RIGHTS RESERVED</span>
-      <span>DESIGN CONCEPT · BLUEPRINT SCHEMATIC</span>
+      <span>SYSTEM STATUS: ALL SERVICES OPERATIONAL</span>
     </div>
   </div>
 </footer>
 
 <script>
-  const toggle = document.getElementById('navToggle');
-  const nav = document.getElementById('mainNav');
-  toggle.addEventListener('click', () => nav.classList.toggle('open'));
-  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+// mobile nav
+const toggle = document.getElementById('navToggle');
+const nav = document.getElementById('mainNav');
+toggle.addEventListener('click', () => nav.classList.toggle('open'));
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+
+// service filter
+const filterBar = document.getElementById('filterBar');
+const cards = document.querySelectorAll('.svc-card');
+filterBar.addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const f = btn.dataset.filter;
+  cards.forEach(c => {
+    c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none';
+  });
+});
+
+// segmented controls
+function setupSeg(id, cb){
+  const seg = document.getElementById(id);
+  seg.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    seg.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    cb(btn.dataset.val);
+  });
+}
+
+// ---- Windows Server License Calculator ----
+let edition = 'standard';
+let calType = 'user';
+
+setupSeg('editionSeg', (v) => { edition = v; calculate(); });
+setupSeg('calSeg', (v) => { calType = v; calculate(); });
+
+const cpuCountEl = document.getElementById('cpuCount');
+const coresPerCpuEl = document.getElementById('coresPerCpu');
+const vmCountEl = document.getElementById('vmCount');
+const calCountEl = document.getElementById('calCount');
+
+[cpuCountEl, coresPerCpuEl, vmCountEl, calCountEl].forEach(el => {
+  el.addEventListener('input', calculate);
+});
+
+function calculate(){
+  let cpuCount = Math.max(1, parseInt(cpuCountEl.value) || 1);
+  let coresPerCpu = Math.max(1, parseInt(coresPerCpuEl.value) || 1);
+  let vmCount = Math.max(1, parseInt(vmCountEl.value) || 1);
+  let calCount = Math.max(0, parseInt(calCountEl.value) || 0);
+
+  // licensed cores per processor: min 8
+  const licPerCpu = Math.max(coresPerCpu, 8);
+  let totalCores = licPerCpu * cpuCount;
+  // minimum 16 per server
+  totalCores = Math.max(totalCores, 16);
+
+  // multiplier for Standard edition (2 OSE per full license set)
+  let multiplier = 1;
+  if(edition === 'standard'){
+    multiplier = Math.ceil(vmCount / 2);
+  }
+
+  const totalCoresLicensed = totalCores * multiplier;
+  const packs = Math.ceil(totalCoresLicensed / 2);
+
+  document.getElementById('outCores').innerHTML = totalCoresLicensed + '<span>คอร์</span>';
+  document.getElementById('outCoresDetail').textContent =
+    'ขายเป็นแพ็ก 2 คอร์ · ต้องซื้อ ' + packs + ' แพ็ก' +
+    (totalCores < (coresPerCpu*cpuCount) || licPerCpu > coresPerCpu ? ' (ปัดขึ้นตามขั้นต่ำของ Microsoft)' : '');
+
+  document.getElementById('outVmLabel').textContent =
+    edition === 'standard' ? 'รอบการไลเซนส์ (Standard)' : 'รอบการไลเซนส์ (Datacenter)';
+  document.getElementById('outMultiplier').innerHTML = multiplier + '<span>รอบ</span>';
+  document.getElementById('outMultiplierDetail').textContent =
+    edition === 'standard'
+      ? 'Standard รองรับ 2 VM ต่อการไลเซนส์เต็มเครื่อง 1 รอบ (ต้องการ ' + vmCount + ' VM)'
+      : 'Datacenter รองรับ VM ไม่จำกัดต่อเครื่อง เมื่อไลเซนส์ครบทุกคอร์แล้ว';
+
+  document.getElementById('outCal').innerHTML = calCount + '<span id="outCalUnit">' + (calType === 'user' ? 'User CAL' : 'Device CAL') + '</span>';
+
+  const warnEl = document.getElementById('calcWarning');
+  if(edition === 'standard' && vmCount > 2){
+    warnEl.textContent = '⚠ ต้องการ ' + vmCount + ' VM บนเครื่องนี้ — Standard Edition ต้องไลเซนส์คอร์ซ้ำทุก 2 VM เพิ่มเติม ถ้าต้องการ VM จำนวนมากบนเครื่องเดียว Datacenter Edition อาจคุ้มค่ากว่า';
+  } else {
+    warnEl.textContent = '';
+  }
+}
+calculate();
+
+// ---- Calculator tab switching ----
+const calcTabBar = document.getElementById('calcTabBar');
+const calcPanels = document.querySelectorAll('.calc-panel');
+function activateCalcTab(tab){
+  calcTabBar.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  calcPanels.forEach(p => { p.hidden = (p.dataset.panel !== tab); });
+}
+calcTabBar.addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  activateCalcTab(btn.dataset.tab);
+});
+document.querySelectorAll('.calc-nav-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    activateCalcTab(link.dataset.tab);
+    document.getElementById('calculator').scrollIntoView({behavior:'smooth'});
+    nav.classList.remove('open');
+  });
+});
+
+// ---- SQL Server License Calculator ----
+let sqlEdition = 'standard';
+let sqlModel = 'core';
+setupSeg('sqlEditionSeg', (v) => {
+  sqlEdition = v;
+  if(sqlEdition === 'enterprise'){
+    sqlModel = 'core';
+    document.querySelectorAll('#sqlModelSeg button').forEach(b => b.classList.toggle('active', b.dataset.val === 'core'));
+    document.getElementById('sqlModelSeg').querySelectorAll('button')[1].disabled = true;
+  } else {
+    document.getElementById('sqlModelSeg').querySelectorAll('button')[1].disabled = false;
+  }
+  calcSql();
+});
+setupSeg('sqlModelSeg', (v) => {
+  if(sqlEdition === 'enterprise' && v === 'cal') return;
+  sqlModel = v;
+  document.getElementById('sqlCoreFields').style.display = (sqlModel === 'core') ? 'grid' : 'none';
+  document.getElementById('sqlCalField').style.display = (sqlModel === 'cal') ? 'block' : 'none';
+  calcSql();
+});
+['sqlCpuCount','sqlCoresPerCpu','sqlCalCount'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calcSql);
+});
+function calcSql(){
+  const cpuCount = Math.max(1, parseInt(document.getElementById('sqlCpuCount').value) || 1);
+  const coresPerCpu = Math.max(1, parseInt(document.getElementById('sqlCoresPerCpu').value) || 1);
+  const calCount = Math.max(0, parseInt(document.getElementById('sqlCalCount').value) || 0);
+
+  if(sqlModel === 'core'){
+    const licPerCpu = Math.max(coresPerCpu, 4);
+    const totalCores = licPerCpu * cpuCount;
+    const packs = Math.ceil(totalCores / 2);
+    document.getElementById('sqlOutLabel').textContent = 'Core License ที่ต้องใช้';
+    document.getElementById('sqlOutMain').innerHTML = totalCores + '<span>คอร์</span>';
+    document.getElementById('sqlOutDetail').textContent = 'ขั้นต่ำ 4 คอร์/processor · ขายเป็นแพ็ก 2 คอร์ · ต้องซื้อ ' + packs + ' แพ็ก';
+    document.getElementById('sqlCalCard').style.display = 'none';
+    document.getElementById('sqlWarning').textContent = '';
+  } else {
+    document.getElementById('sqlOutLabel').textContent = 'Server License';
+    document.getElementById('sqlOutMain').innerHTML = '1<span>เครื่อง</span>';
+    document.getElementById('sqlOutDetail').textContent = 'ใช้ได้เฉพาะ SQL Server Standard Edition เท่านั้น';
+    document.getElementById('sqlCalCard').style.display = 'block';
+    document.getElementById('sqlCalCard').querySelector('.rv').innerHTML = calCount + '<span>CAL</span>';
+    document.getElementById('sqlWarning').textContent = calCount > 25 ? '⚠ ผู้ใช้เกิน 25 ราย โมเดล Per Core มักคุ้มค่ากว่า Server+CAL' : '';
+  }
+}
+calcSql();
+
+// ---- Backup Storage Calculator ----
+['bkSize','bkChange','bkRetention','bkCompression'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calcBackup);
+});
+function calcBackup(){
+  const size = Math.max(0, parseFloat(document.getElementById('bkSize').value) || 0);
+  const changeRate = Math.max(0, parseFloat(document.getElementById('bkChange').value) || 0) / 100;
+  const retention = Math.max(1, parseInt(document.getElementById('bkRetention').value) || 1);
+  const compression = Math.max(5, parseFloat(document.getElementById('bkCompression').value) || 100) / 100;
+
+  const fullBackup = size * compression;
+  const incrementalTotal = size * changeRate * retention * compression;
+  const total = fullBackup + incrementalTotal;
+
+  document.getElementById('bkOutFull').innerHTML = fullBackup.toFixed(1) + '<span>GB</span>';
+  document.getElementById('bkOutIncr').innerHTML = incrementalTotal.toFixed(1) + '<span>GB</span>';
+  document.getElementById('bkOutIncrDetail').textContent =
+    size + 'GB × ' + (changeRate*100).toFixed(1) + '% × ' + retention + ' วัน × อัตราบีบอัด ' + (compression*100).toFixed(0) + '%';
+  document.getElementById('bkOutTotal').innerHTML = total.toFixed(1) + '<span>GB</span>';
+  document.getElementById('bkOutTotalDetail').textContent =
+    'รวม Full + Incremental — แนะนำเผื่อ Buffer เพิ่มอีก 20-30% เป็น ' + (total*1.25).toFixed(0) + 'GB';
+}
+calcBackup();
+
+// ---- Bandwidth Calculator ----
+['bwFileSize','bwFileUnit','bwSpeed','bwSpeedUnit','bwPageViews','bwPageSize','bwRedundancy'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calcBandwidth);
+});
+function formatTime(seconds){
+  if(!isFinite(seconds) || seconds < 0) return '—';
+  const h = Math.floor(seconds/3600);
+  const m = Math.floor((seconds%3600)/60);
+  const s = Math.floor(seconds%60);
+  return [h,m,s].map(v => String(v).padStart(2,'0')).join(':');
+}
+function calcBandwidth(){
+  const fileSize = Math.max(0, parseFloat(document.getElementById('bwFileSize').value) || 0);
+  const fileUnitMB = parseFloat(document.getElementById('bwFileUnit').value);
+  const fileSizeMB = fileSize * fileUnitMB;
+  const fileSizeMb = fileSizeMB * 8; // megabits
+
+  const speed = Math.max(0.001, parseFloat(document.getElementById('bwSpeed').value) || 0.001);
+  const speedUnitMbps = parseFloat(document.getElementById('bwSpeedUnit').value);
+  const speedMbps = speed * speedUnitMbps;
+
+  const seconds = fileSizeMb / speedMbps;
+  document.getElementById('bwOutTime').innerHTML = formatTime(seconds) + '<span></span>';
+
+  const pageViews = Math.max(0, parseFloat(document.getElementById('bwPageViews').value) || 0);
+  const pageSizeMB = Math.max(0, parseFloat(document.getElementById('bwPageSize').value) || 0);
+  const redundancy = Math.max(1, parseFloat(document.getElementById('bwRedundancy').value) || 1);
+
+  const dailyMB = pageViews * pageSizeMB * redundancy;
+  const dailyMb = dailyMB * 8;
+  const requiredMbps = dailyMb / 86400;
+
+  document.getElementById('bwOutMbps').innerHTML = requiredMbps.toFixed(2) + '<span>Mbps</span>';
+
+  const monthlyMB = dailyMB * 30;
+  const monthlyGB = monthlyMB / 1024;
+  const monthlyTB = monthlyGB / 1024;
+  if(monthlyTB >= 1){
+    document.getElementById('bwOutMonthly').innerHTML = monthlyTB.toFixed(2) + '<span>TB</span>';
+  } else {
+    document.getElementById('bwOutMonthly').innerHTML = monthlyGB.toFixed(1) + '<span>GB</span>';
+  }
+}
+calcBandwidth();
 </script>
 
 </body>
