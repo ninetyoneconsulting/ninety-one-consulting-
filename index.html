@@ -1381,7 +1381,11 @@ footer{background:var(--panel);border-top:1px solid var(--line);padding:44px 28p
       <div class="contact-detail"><div class="contact-detail-label">สำนักงาน</div><div class="contact-detail-val">063-343-9100</div></div>
       <div class="contact-detail"><div class="contact-detail-label">พื้นที่บริการ</div><div class="contact-detail-val">กรุงเทพฯ และต่างจังหวัด</div></div>
     </div>
-    <form class="contact-form hud" action="mailto:sale@91-consulting.com" method="post" enctype="text/plain">
+    <form class="contact-form hud" id="contactForm" action="https://api.web3forms.com/submit" method="post">
+      <input type="hidden" name="access_key" value="455207b4-4461-4224-9b96-37e0f5a5e584">
+      <input type="hidden" name="subject" value="มีลูกค้าติดต่อจากเว็บ 91-consulting.com">
+      <input type="hidden" name="from_name" value="91-consulting.com Contact Form">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
       <div class="form-row">
         <div class="form-field"><label for="f-name">ชื่อ-นามสกุล</label><input id="f-name" name="ชื่อ" type="text" required></div>
         <div class="form-field"><label for="f-company">บริษัท</label><input id="f-company" name="บริษัท" type="text"></div>
@@ -1442,8 +1446,9 @@ footer{background:var(--panel);border-top:1px solid var(--line);padding:44px 28p
       <div class="form-row">
         <div class="form-field full"><label for="f-message">รายละเอียดงาน</label><textarea id="f-message" name="รายละเอียดงาน" placeholder="เล่าคร่าว ๆ ว่าต้องการระบบแบบไหน หรือมีปัญหาอะไรอยู่"></textarea></div>
       </div>
-      <button type="submit" class="btn btn-primary form-submit">ส่งข้อความถึงเรา →</button>
-      <div class="form-note">* ฟอร์มนี้เปิดโปรแกรมอีเมลของคุณเพื่อส่งข้อความ หากต้องการฟอร์มที่ส่งเข้าระบบโดยตรงจำเป็นต้องเชื่อมต่อบริการฟอร์มเพิ่มเติม</div>
+      <button type="submit" class="btn btn-primary form-submit" id="formSubmitBtn">ส่งข้อความถึงเรา →</button>
+      <div class="form-note" id="formNote">* ข้อมูลของคุณจะถูกส่งเข้าระบบโดยตรง ทีมงานจะติดต่อกลับโดยเร็วที่สุด</div>
+      <div id="formResult" style="display:none;margin-top:14px;padding:14px 18px;border-radius:10px;font-size:.95rem;line-height:1.5;"></div>
     </form>
   </div>
 </section>
@@ -1483,6 +1488,58 @@ const toggle = document.getElementById('navToggle');
 const nav = document.getElementById('mainNav');
 toggle.addEventListener('click', () => nav.classList.toggle('open'));
 nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+
+// ---- Contact form: submit via Web3Forms (AJAX, stays on page) ----
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  const submitBtn = document.getElementById('formSubmitBtn');
+  const resultBox = document.getElementById('formResult');
+  const originalBtnText = submitBtn.textContent;
+
+  contactForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'กำลังส่ง...';
+    resultBox.style.display = 'none';
+
+    const formData = new FormData(contactForm);
+    const payload = Object.fromEntries(formData.entries());
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        resultBox.style.display = 'block';
+        if (data.success) {
+          resultBox.style.background = '#EAF7EF';
+          resultBox.style.color = '#1E7E4B';
+          resultBox.style.border = '1px solid #BFE6CC';
+          resultBox.textContent = '✓ ส่งข้อความสำเร็จ ทีมงานของเราจะติดต่อกลับโดยเร็วที่สุด ขอบคุณครับ';
+          contactForm.reset();
+        } else {
+          resultBox.style.background = '#FDEDEA';
+          resultBox.style.color = '#B3261E';
+          resultBox.style.border = '1px solid #F5C6C0';
+          resultBox.textContent = 'เกิดข้อผิดพลาดในการส่ง กรุณาลองใหม่อีกครั้ง หรือติดต่อทางอีเมล sale@91-consulting.com โดยตรง';
+        }
+      })
+      .catch(() => {
+        resultBox.style.display = 'block';
+        resultBox.style.background = '#FDEDEA';
+        resultBox.style.color = '#B3261E';
+        resultBox.style.border = '1px solid #F5C6C0';
+        resultBox.textContent = 'ไม่สามารถส่งข้อความได้ กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต หรือติดต่อทางอีเมล sale@91-consulting.com โดยตรง';
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      });
+  });
+}
 
 // service filter
 const filterBar = document.getElementById('filterBar');
