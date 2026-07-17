@@ -79,8 +79,12 @@ img,svg{display:block;max-width:100%;}
 /* ---------- NAV ---------- */
 header.site{
   position:sticky;top:0;z-index:200;
-  background:rgba(255,255,255,.88);backdrop-filter:blur(10px);
+  background:rgba(255,255,255,.88);
   border-bottom:1px solid var(--line);
+}
+header.site::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 }
 .nav-wrap{max-width:1280px;margin:0 auto;padding:0 28px;height:68px;display:flex;align-items:center;justify-content:space-between;}
 .brand{display:flex;align-items:center;gap:11px;}
