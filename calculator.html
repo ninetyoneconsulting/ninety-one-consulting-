@@ -771,7 +771,7 @@ footer.footer-dark .footer-inner{position:relative;z-index:1;}
     <div class="calc-outputs">
       <div class="readout-card">
         <div class="rl">เวลาที่ใช้โอนไฟล์</div>
-        <div class="rv" id="bwOutTime">00:00:14<span></span></div>
+        <div class="rv" id="bwOutTime" style="font-size:26px;line-height:1.3;">14 วินาที</div>
         <div class="rd">ที่ความเร็วลิงก์ที่ระบุ (ไม่รวม overhead ของ protocol)</div>
       </div>
       <div class="calc-note">
@@ -1060,10 +1060,16 @@ if (document.getElementById('bwFileSize')) {
 });
 function formatTime(seconds){
   if(!isFinite(seconds) || seconds < 0) return '—';
-  const h = Math.floor(seconds/3600);
-  const m = Math.floor((seconds%3600)/60);
-  const s = Math.floor(seconds%60);
-  return [h,m,s].map(v => String(v).padStart(2,'0')).join(':');
+  seconds = Math.floor(seconds);
+  const days = Math.floor(seconds / 86400);
+  const hours = Math.floor((seconds % 86400) / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = Math.floor(seconds % 60);
+
+  if (days > 0) return days + ' วัน ' + hours + ' ชม. ' + minutes + ' นาที';
+  if (hours > 0) return hours + ' ชม. ' + minutes + ' นาที ' + secs + ' วิ';
+  if (minutes > 0) return minutes + ' นาที ' + secs + ' วินาที';
+  return secs + ' วินาที';
 }
 function calcBandwidth(){
   const fileSize = Math.max(0, parseFloat(document.getElementById('bwFileSize').value) || 0);
@@ -1076,7 +1082,7 @@ function calcBandwidth(){
   const speedMbps = speed * speedUnitMbps;
 
   const seconds = fileSizeMb / speedMbps;
-  document.getElementById('bwOutTime').innerHTML = formatTime(seconds) + '<span></span>';
+  document.getElementById('bwOutTime').textContent = formatTime(seconds);
 }
 calcBandwidth();
 }
