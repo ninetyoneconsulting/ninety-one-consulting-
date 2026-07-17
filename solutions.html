@@ -222,8 +222,11 @@ h2.section-title{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size
   background:transparent;cursor:pointer;transition:all .2s;
 }
 .filter-btn.active,.filter-btn:hover{border-color:var(--cyan);color:var(--cyan-dim);background:rgba(232,120,21,.08);}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
-.svc-card{background:var(--panel);padding:28px 26px;display:flex;flex-direction:column;transition:background .2s;}
+.svc-grid{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);}
+.svc-card{background:var(--panel);padding:28px 32px;display:flex;flex-direction:row;gap:30px;align-items:flex-start;transition:background .2s;}
+.svc-visual{flex:0 0 140px;width:140px;height:140px;}
+.svc-visual svg{width:100%;height:100%;display:block;}
+.svc-body{flex:1;min-width:0;}
 .svc-card:hover{background:var(--panel-2);}
 .svc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
 .svc-tag{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan-dim);letter-spacing:.08em;}
@@ -395,6 +398,8 @@ footer{background:var(--panel);border-top:1px solid var(--line);padding:44px 28p
   .calc-inputs{border-right:none;border-bottom:1px solid var(--line);}
   .field-row{grid-template-columns:1fr;}
   .svc-grid{grid-template-columns:1fr;}
+  .svc-card{flex-direction:column;}
+  .svc-visual{width:96px;height:96px;flex-basis:96px;}
   .signal{grid-template-columns:1fr;gap:28px;}
   .signal::before{display:none;}
   .about-grid{grid-template-columns:1fr;gap:36px;}
@@ -504,75 +509,117 @@ footer{background:var(--panel);border-top:1px solid var(--line);padding:44px 28p
       </div>
 
       <div class="svc-card" data-cat="infra" id="it-infra">
+        <div class="svc-visual"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="var(--panel-3)"/>
+
+  <rect x="32" y="32" width="56" height="14" rx="3" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="76" cy="39" r="2.5" fill="var(--cyan)"/>
+  <rect x="32" y="53" width="56" height="14" rx="3" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="76" cy="60" r="2.5" fill="var(--cyan)"/>
+  <rect x="32" y="74" width="56" height="14" rx="3" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="76" cy="81" r="2.5" fill="var(--cyan)"/>
+
+</svg></div>
+        <div class="svc-body">
         <div class="svc-top"><span class="svc-tag">01 · INFRA</span><span class="svc-led"></span></div>
         <h3>End-to-End IT Infrastructure Solutions</h3>
         <div class="svc-tagline">ออกแบบ ติดตั้ง และให้คำปรึกษาโดยวิศวกรผู้เชี่ยวชาญ</div>
         <p class="svc-desc">วางระบบโครงสร้างพื้นฐานไอทีตั้งแต่ต้นจนจบ ปรับให้เหมาะกับขนาดองค์กรและงบประมาณของแต่ละธุรกิจ</p>
-        <details>
-          <summary>รายละเอียด</summary>
           <ul class="svc-list">
             <li>วางระบบ Server, Storage และ Network สำหรับองค์กรทุกขนาด</li>
             <li>ติดตั้งเครือข่ายไร้สาย (Wi-Fi) ความเร็วสูง รองรับการใช้งานหนาแน่น</li>
             <li>ออกแบบระบบรักษาความปลอดภัย Firewall, VPN, Load Balancer</li>
             <li>ปรับแต่งโซลูชันให้เหมาะกับงบประมาณและเป้าหมายธุรกิจ</li>
           </ul>
-        </details>
+        </div>
       </div>
 
       <div class="svc-card" data-cat="infra" id="it-equipment">
+        <div class="svc-visual"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="var(--panel-3)"/>
+
+  <path d="M30 45 L60 32 L90 45 L60 58 Z" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M30 45 L30 75 L60 88 L60 58" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M90 45 L90 75 L60 88" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M30 45 L60 58 L90 45" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+</svg></div>
+        <div class="svc-body">
         <div class="svc-top"><span class="svc-tag">02 · INFRA</span><span class="svc-led"></span></div>
         <h3>IT Equipment Sales &amp; Rental</h3>
         <div class="svc-tagline">จำหน่ายและให้เช่าอุปกรณ์ไอทีสำหรับองค์กร</div>
         <p class="svc-desc">ครบวงจรทั้งฮาร์ดแวร์และโซลูชัน พร้อมบริการติดตั้งและดูแลหลังการขาย</p>
-        <details>
-          <summary>รายละเอียด</summary>
           <ul class="svc-list">
             <li>จำหน่าย Server, Storage, Firewall, Switch, Wireless AP</li>
             <li>ให้เช่าอุปกรณ์ไอทีสำหรับโปรเจกต์ระยะสั้นหรืองานอีเวนต์</li>
             <li>บริการ On-site Setup และ Remote Support</li>
             <li>แพ็กเกจรายเดือน/รายปี พร้อมใบเสนอราคาอย่างเป็นทางการ</li>
           </ul>
-        </details>
+        </div>
       </div>
 
       <div class="svc-card" data-cat="infra" id="server-storage">
+        <div class="svc-visual"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="var(--panel-3)"/>
+
+  <ellipse cx="60" cy="38" rx="26" ry="9" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M34 38 L34 60 C34 65 46 69 60 69 C74 69 86 65 86 60 L86 38" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M34 60 L34 82 C34 87 46 91 60 91 C74 91 86 87 86 82 L86 60" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+</svg></div>
+        <div class="svc-body">
         <div class="svc-top"><span class="svc-tag">03 · ICT</span><span class="svc-led"></span></div>
         <h3>Server and Storage System</h3>
         <div class="svc-tagline">เลือกและวางระบบเซิร์ฟเวอร์-สตอเรจให้เหมาะกับงานจริง</div>
         <p class="svc-desc">ให้คำปรึกษา จัดหา ติดตั้ง และดูแลระบบ Server และ Storage สำหรับองค์กร ทั้งแบบ On-Premise และ Hybrid</p>
-        <details>
-          <summary>รายละเอียด</summary>
           <ul class="svc-list">
             <li>เลือกสเปก Server และ Storage ให้เหมาะกับปริมาณงานและงบประมาณ</li>
             <li>ติดตั้งระบบ RAID, Redundancy และ Backup เพื่อความปลอดภัยของข้อมูล</li>
             <li>รองรับทั้ง Physical Server และระบบ Virtualization</li>
             <li>ดูแลและขยายระบบได้ในระยะยาวตามการเติบโตของธุรกิจ</li>
           </ul>
-        </details>
+        </div>
       </div>
 
       <div class="svc-card" data-cat="support" id="managed-services">
+        <div class="svc-visual"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="var(--panel-3)"/>
+
+  <path d="M32 62 C32 40 44 28 60 28 C76 28 88 40 88 62" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect x="26" y="58" width="14" height="24" rx="6" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect x="80" y="58" width="14" height="24" rx="6" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M40 82 C40 90 48 94 56 94" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+</svg></div>
+        <div class="svc-body">
         <div class="svc-top"><span class="svc-tag">04 · SUPPORT</span><span class="svc-led"></span></div>
         <h3>IT Managed Services &amp; Consulting</h3>
         <div class="svc-tagline">เพราะเราไม่ได้แค่ "ติดตั้ง" แต่ยังพร้อม "ดูแล"</div>
         <p class="svc-desc">ทีมงานพร้อมสนับสนุนตลอดอายุการใช้งานระบบ ไม่ใช่แค่วันที่ติดตั้งเสร็จ</p>
-        <details>
-          <summary>รายละเอียด</summary>
           <ul class="svc-list">
             <li>บริการ Managed Services และ MA (Maintenance Agreement)</li>
             <li>ทีมงานให้คำแนะนำตลอดการใช้งาน</li>
             <li>ตรวจเช็กสุขภาพระบบสม่ำเสมอ ป้องกันปัญหาก่อนเกิดจริง</li>
           </ul>
-        </details>
+        </div>
       </div>
 
       <div class="svc-card" data-cat="cloud" id="cloud">
+        <div class="svc-visual"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="var(--panel-3)"/>
+
+  <path d="M38 55 C30 55 24 49 24 42 C24 35 30 29 37 29 C39 20 47 14 56 14 C66 14 74 21 76 30 C84 31 90 38 90 46 C90 53 84 59 76 59 L38 59 Z" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect x="42" y="68" width="36" height="10" rx="2" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect x="42" y="82" width="36" height="10" rx="2" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="72" cy="73" r="1.8" fill="var(--cyan)"/>
+  <circle cx="72" cy="87" r="1.8" fill="var(--cyan)"/>
+
+</svg></div>
+        <div class="svc-body">
         <div class="svc-top"><span class="svc-tag">05 · CLOUD</span><span class="svc-led"></span></div>
         <h3>Cloud VPS SSD &amp; Dedicated Server</h3>
         <div class="svc-tagline">ยืดหยุ่น ปลอดภัย พร้อมรองรับการขยายตัวของธุรกิจ</div>
         <p class="svc-desc">โครงสร้าง Cloud และเซิร์ฟเวอร์กายภาพบน Data Center มาตรฐาน CS Loxinfo รับประกัน Uptime 99.9%</p>
-        <details>
-          <summary>รายละเอียด</summary>
           <ul class="svc-list">
             <li>Cloud VPS SSD บน DELL Server และ Samsung SSD ปรับขนาดทรัพยากรได้ตามใช้งานจริง</li>
             <li>Dedicated Server เครื่องเต็มสำหรับงานที่ต้องการประสิทธิภาพสูง</li>
@@ -590,16 +637,24 @@ footer{background:var(--panel);border-top:1px solid var(--line);padding:44px 28p
               </tbody>
             </table>
           </div>
-        </details>
+        </div>
       </div>
 
       <div class="svc-card" data-cat="cloud" id="vps-business">
+        <div class="svc-visual"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="var(--panel-3)"/>
+
+  <path d="M35 50 C28 50 22 44 22 37 C22 31 27 25 34 25 C36 17 43 11 52 11 C61 11 68 17 70 25 C77 26 83 32 83 39 C83 45 78 50 71 50 Z" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect x="38" y="60" width="44" height="30" rx="4" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M50 60 L50 54 C50 51 52 49 55 49 L65 49 C68 49 70 51 70 54 L70 60" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <line x1="38" y1="74" x2="82" y2="74" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+</svg></div>
+        <div class="svc-body">
         <div class="svc-top"><span class="svc-tag">06 · CLOUD</span><span class="svc-led"></span></div>
         <h3>Cloud VPS Business</h3>
         <div class="svc-tagline">ทรัพยากรเต็มเครื่อง ไม่ต้องแชร์กับใคร</div>
         <p class="svc-desc">เซิร์ฟเวอร์เสมือนระดับองค์กร ควบคุมได้อิสระเสมือนเป็นเจ้าของเครื่องเอง</p>
-        <details>
-          <summary>รายละเอียด</summary>
           <ul class="svc-list">
             <li>ควบคุมผ่าน Remote Desktop, SSH หรือ vSphere Web Client</li>
             <li>ปรับแต่ง Configuration ของ OS และซอฟต์แวร์ได้เต็มที่</li>
@@ -607,32 +662,50 @@ footer{background:var(--panel);border-top:1px solid var(--line);padding:44px 28p
             <li>Backup อัตโนมัติทุกวัน ย้อนหลังสูงสุด 7 วัน</li>
             <li>Public IP ส่วนตัว พร้อมเจ้าหน้าที่ดูแลตลอด 24/7/365</li>
           </ul>
-        </details>
+        </div>
       </div>
 
       <div class="svc-card" data-cat="cloud" id="vps-forex">
+        <div class="svc-visual"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="var(--panel-3)"/>
+
+  <path d="M36 46 C29 46 23 40 23 33 C23 27 28 21 35 21 C37 13 44 7 53 7 C62 7 69 13 71 21 C78 22 84 28 84 35 C84 41 79 46 72 46 Z" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <line x1="40" y1="60" x2="40" y2="92" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <line x1="60" y1="55" x2="60" y2="92" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <line x1="80" y1="65" x2="80" y2="92" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect x="35" y="66" width="10" height="16" rx="1.5" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect x="55" y="60" width="10" height="22" rx="1.5" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect x="75" y="72" width="10" height="12" rx="1.5" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+</svg></div>
+        <div class="svc-body">
         <div class="svc-top"><span class="svc-tag">07 · CLOUD</span><span class="svc-led"></span></div>
         <h3>Cloud VPS Forex</h3>
         <div class="svc-tagline">เซิร์ฟเวอร์เฉพาะสาย Trading เปิด EA ได้ตลอด 24 ชม.</div>
         <p class="svc-desc">ออกแบบมาสำหรับนักเทรดโดยเฉพาะ เชื่อมต่อตรงไปต่างประเทศ ไม่พลาดทุกคำสั่งเทรด</p>
-        <details>
-          <summary>รายละเอียด</summary>
           <ul class="svc-list">
             <li>รองรับ EA / EA Copy Trade / Backtest บน MT4, MT5, cTrader</li>
             <li>รันได้ทุกโบรกเกอร์ เช่น XM, FBS, Vantage FX, Pepperstone, Exness</li>
             <li>ทรัพยากรจัดสรรเต็มประสิทธิภาพ ไม่แบ่งผู้ใช้รายอื่น</li>
             <li>ทำงานแทนคอมพิวเตอร์ตลอด 24 ชั่วโมง ไม่มีวันหยุด</li>
           </ul>
-        </details>
+        </div>
       </div>
 
       <div class="svc-card" data-cat="cloud" id="dr-site">
+        <div class="svc-visual"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="var(--panel-3)"/>
+
+  <path d="M60 14 L88 25 L88 55 C88 75 76 90 60 96 C44 90 32 75 32 55 L32 25 Z" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M48 55 A12 12 0 1 1 51 63" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M51 47 L48 55 L40 53" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+</svg></div>
+        <div class="svc-body">
         <div class="svc-top"><span class="svc-tag">08 · CLOUD</span><span class="svc-led"></span></div>
         <h3>Disaster Recovery Site &amp; Cloud Backup</h3>
         <div class="svc-tagline">เตรียมพร้อมก่อนเกิดเหตุ ฉุกเฉินแค่ไหนธุรกิจก็ไม่หยุด</div>
         <p class="svc-desc">แผนสำรองข้อมูลและการฟื้นฟูระบบแบบ Disaster Recovery as a Service</p>
-        <details>
-          <summary>รายละเอียด</summary>
           <ul class="svc-list">
             <li>สำรอง/กู้คืนได้ทั้ง Physical Server, Virtual Server, VMware, Hyper-V</li>
             <li>กู้คืนระดับ File-based และ Volume-based พร้อม Encryption</li>
@@ -648,16 +721,22 @@ footer{background:var(--panel);border-top:1px solid var(--line);padding:44px 28p
               </tbody>
             </table>
           </div>
-        </details>
+        </div>
       </div>
 
       <div class="svc-card" data-cat="cloud" id="storage">
+        <div class="svc-visual"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="var(--panel-3)"/>
+
+  <path d="M36 48 C29 48 23 42 23 35 C23 29 28 23 35 23 C37 15 44 9 53 9 C62 9 69 15 71 23 C78 24 84 30 84 37 C84 43 79 48 72 48 Z" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M30 62 L30 88 C30 90 32 92 34 92 L86 92 C88 92 90 90 90 88 L90 66 C90 64 88 62 86 62 L62 62 L56 56 L34 56 C32 56 30 58 30 60 Z" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+</svg></div>
+        <div class="svc-body">
         <div class="svc-top"><span class="svc-tag">09 · CLOUD</span><span class="svc-led"></span></div>
         <h3>Cloud Storage &amp; File Backup</h3>
         <div class="svc-tagline">พื้นที่รับฝากข้อมูลบนคลาวด์ ตั้งอยู่ในประเทศไทย</div>
         <p class="svc-desc">เก็บและแชร์ไฟล์องค์กรได้จากทุกอุปกรณ์ ปลอดภัย เข้าถึงง่าย</p>
-        <details>
-          <summary>รายละเอียด</summary>
           <ul class="svc-list">
             <li>เข้าถึงไฟล์ได้ทุกที่ ผ่าน Website, Windows, MAC, iOS, Android</li>
             <li>แชร์ไฟล์แบบ Password Protected Sharing</li>
@@ -670,55 +749,81 @@ footer{background:var(--panel);border-top:1px solid var(--line);padding:44px 28p
               <tbody><tr><th>Storage</th><td>100GB</td><td>500GB</td><td>1000GB</td><td>1500GB</td><td>2000GB</td></tr></tbody>
             </table>
           </div>
-        </details>
+        </div>
       </div>
 
       <div class="svc-card" data-cat="cloud" id="hosting">
+        <div class="svc-visual"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="var(--panel-3)"/>
+
+  <circle cx="58" cy="55" r="34" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <ellipse cx="58" cy="55" rx="14" ry="34" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <line x1="24" y1="55" x2="92" y2="55" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M29 38 C40 44 76 44 87 38" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M29 72 C40 66 76 66 87 72" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+</svg></div>
+        <div class="svc-body">
         <div class="svc-top"><span class="svc-tag">10 · CLOUD</span><span class="svc-led"></span></div>
         <h3>Cloud Web Hosting</h3>
         <div class="svc-tagline">โฮสต์เว็บไซต์และอีเมลองค์กร บริหารเองผ่าน Control Panel</div>
         <p class="svc-desc">บริการ Web Hosting ครบทั้งเว็บไซต์และอีเมล จัดการทุกอย่างได้เอง</p>
-        <details>
-          <summary>รายละเอียด</summary>
           <ul class="svc-list">
             <li>บริหารผ่าน DirectAdmin Control Panel ใช้งานง่าย</li>
             <li>ไม่จำกัด Sub Domain และฐานข้อมูล MySQL</li>
             <li>จัดการอีเมลได้เอง เพิ่ม/ลบ Account ได้ตามต้องการ</li>
             <li>DELL Server พร้อม Hardware RAID-1</li>
           </ul>
-        </details>
+        </div>
       </div>
 
       <div class="svc-card" data-cat="infra" id="it-solution">
+        <div class="svc-visual"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="var(--panel-3)"/>
+
+  <path d="M30 45 L86 45" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M72 31 L86 45 L72 59" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M90 75 L34 75" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M48 61 L34 75 L48 89" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+</svg></div>
+        <div class="svc-body">
         <div class="svc-top"><span class="svc-tag">11 · INFRA</span><span class="svc-led"></span></div>
         <h3>System Migration &amp; Virtualization</h3>
         <div class="svc-tagline">ย้ายระบบขึ้น Cloud หรือ Private Cloud โดยไม่ให้ธุรกิจสะดุด</div>
         <p class="svc-desc">ย้ายระบบจาก Server เครื่องเก่าไปสู่ Cloud หรือ VMware Private Cloud</p>
-        <details>
-          <summary>รายละเอียด</summary>
           <ul class="svc-list">
             <li>ย้ายระบบจาก Server เก่าไปไว้บน Cloud หรือ VMware (Private Cloud)</li>
             <li>ย้ายข้ามผู้ให้บริการ Cloud เดิมได้โดยไม่มีค่าใช้จ่ายเพิ่ม</li>
             <li>VMware Resource Pool และ ESXi บริหารทรัพยากรได้เอง</li>
             <li>ติดตั้ง Firewall หรือ Virtual Firewall ป้องกันการบุกรุก</li>
           </ul>
-        </details>
+        </div>
       </div>
 
       <div class="svc-card" data-cat="infra" id="relocation">
+        <div class="svc-visual"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="var(--panel-3)"/>
+
+  <rect x="20" y="45" width="42" height="30" rx="2" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M62 55 L80 55 L92 68 L92 75 L62 75 Z" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="36" cy="80" r="7" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="80" cy="80" r="7" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <line x1="43" y1="80" x2="73" y2="80" stroke="var(--cyan)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+</svg></div>
+        <div class="svc-body">
         <div class="svc-top"><span class="svc-tag">12 · INFRA</span><span class="svc-led"></span></div>
         <h3>Office IT Relocation Services</h3>
         <div class="svc-tagline">บริการย้ายระบบไอทีและอุปกรณ์สำนักงานแบบครบวงจร</div>
         <p class="svc-desc">ให้การย้ายสำนักงานเป็นเรื่องง่ายและปลอดภัย ด้วยทีมงานมืออาชีพ</p>
-        <details>
-          <summary>รายละเอียด</summary>
           <ul class="svc-list">
             <li>วางแผนและประเมินความเสี่ยงก่อนการย้าย</li>
             <li>ถอด ติดตั้ง และเชื่อมต่อระบบใหม่ครบวงจร</li>
             <li>ทดสอบระบบหลังย้ายเสร็จ พร้อมตรวจสอบความพร้อมใช้งาน</li>
             <li>ให้บริการทั้งในเขตกรุงเทพฯ และต่างจังหวัด</li>
           </ul>
-        </details>
+        </div>
       </div>
 
     </div>
