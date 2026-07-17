@@ -202,6 +202,8 @@ h2.section-title{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size
 .field input:focus,.field select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(232,120,21,.12);}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .seg{display:flex;border:1px solid var(--line-2);border-radius:var(--radius);overflow:hidden;}
+.seg.seg-wrap{flex-wrap:wrap;border-radius:0;overflow:visible;gap:1px;background:var(--line-2);border:1px solid var(--line-2);}
+.seg.seg-wrap button{flex:1 1 auto;background:var(--panel-2);}
 .seg button{
   flex:1;background:var(--void);color:var(--muted);border:none;padding:10px 8px;
   font-family:'JetBrains Mono',monospace;font-size:14px;cursor:pointer;transition:background .2s,color .2s;
@@ -533,6 +535,11 @@ footer.footer-dark .footer-inner{position:relative;z-index:1;}
     <button class="filter-btn" data-tab="sql">SQL License</button>
     <button class="filter-btn" data-tab="backup">Backup Storage</button>
     <button class="filter-btn" data-tab="bandwidth">Bandwidth</button>
+    <button class="filter-btn" data-tab="raid">RAID Storage</button>
+    <button class="filter-btn" data-tab="uptime">Uptime / SLA</button>
+    <button class="filter-btn" data-tab="dr">DR-Site (RTO/RPO)</button>
+    <button class="filter-btn" data-tab="vps">VPS Sizing</button>
+    <button class="filter-btn" data-tab="tco">TCO: On-Prem vs Cloud</button>
   </div>
 
   <!-- ===== TAB 1: WINDOWS SERVER LICENSE ===== -->
@@ -781,6 +788,259 @@ footer.footer-dark .footer-inner{position:relative;z-index:1;}
     </div>
   </div>
   </div>
+
+  <!-- ===== TAB 5: RAID STORAGE ===== -->
+  <div class="calc-panel" data-panel="raid" hidden>
+  <div class="calc-shell hud">
+    <div class="calc-titlebar">
+      <span class="t">raid-storage-calculator.exe — running</span>
+      <div class="calc-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="calc-inputs">
+      <div class="calc-h">คำนวณพื้นที่ใช้งานจริงหลังทำ RAID</div>
+      <p class="calc-p">เลือกประเภท RAID แล้วใส่จำนวนดิสก์และขนาดต่อลูก เพื่อดูพื้นที่ใช้งานได้จริง</p>
+
+      <div class="field">
+        <label>ประเภท RAID</label>
+        <div class="seg seg-wrap" id="raidTypeSeg">
+          <button type="button" class="active" data-val="0">RAID 0</button>
+          <button type="button" data-val="1">RAID 1</button>
+          <button type="button" data-val="5">RAID 5</button>
+          <button type="button" data-val="6">RAID 6</button>
+          <button type="button" data-val="10">RAID 10</button>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>จำนวนดิสก์</label>
+          <input type="number" id="raidDiskCount" min="2" max="24" value="4">
+        </div>
+        <div class="field">
+          <label>ขนาดดิสก์ต่อลูก (TB)</label>
+          <input type="number" id="raidDiskSize" min="0" value="4" step="0.1">
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-outputs">
+      <div class="readout-card">
+        <div class="rl">พื้นที่ใช้งานได้จริง</div>
+        <div class="rv" id="raidOutUsable">12<span>TB</span></div>
+        <div class="rd" id="raidOutUsableDetail">จากพื้นที่รวม 16TB</div>
+      </div>
+      <div class="readout-card">
+        <div class="rl">พื้นที่ที่เสียไปกับ Redundancy</div>
+        <div class="rv" id="raidOutOverhead">4<span>TB</span></div>
+        <div class="rd" id="raidOutOverheadDetail">คิดเป็น 25% ของพื้นที่รวม</div>
+      </div>
+      <div class="readout-card">
+        <div class="rl">ทนทานต่อดิสก์เสีย</div>
+        <div class="rv" id="raidOutTolerance">1<span>ลูก</span></div>
+        <div class="rd" id="raidOutToleranceDetail">ดิสก์เสียได้สูงสุดกี่ลูกโดยข้อมูลไม่หาย</div>
+      </div>
+      <div class="calc-note">
+        * การคำนวณเป็นค่าประมาณตามสถาปัตยกรรม RAID มาตรฐาน ไม่รวม overhead ของ Controller หรือ Filesystem
+      </div>
+      <a href="/contact" class="btn btn-primary calc-cta">ปรึกษาทีมงานเรื่อง Storage →</a>
+    </div>
+  </div>
+  </div>
+
+  <!-- ===== TAB 6: UPTIME / SLA DOWNTIME ===== -->
+  <div class="calc-panel" data-panel="uptime" hidden>
+  <div class="calc-shell hud">
+    <div class="calc-titlebar">
+      <span class="t">uptime-sla-calculator.exe — running</span>
+      <div class="calc-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="calc-inputs">
+      <div class="calc-h">แปลง % Uptime เป็นเวลาดาวน์ไทม์จริง</div>
+      <p class="calc-p">เลือกหรือกรอกเปอร์เซ็นต์ Uptime เพื่อดูว่ายอมให้ระบบล่มได้นานแค่ไหน</p>
+
+      <div class="field">
+        <label>ระดับ SLA</label>
+        <div class="seg seg-wrap" id="uptimePresetSeg">
+          <button type="button" data-val="99">99%</button>
+          <button type="button" class="active" data-val="99.9">99.9%</button>
+          <button type="button" data-val="99.95">99.95%</button>
+          <button type="button" data-val="99.99">99.99%</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>หรือกรอกเปอร์เซ็นต์เอง</label>
+        <input type="number" id="uptimeCustom" min="0" max="100" value="99.9" step="0.001">
+      </div>
+    </div>
+
+    <div class="calc-outputs">
+      <div class="readout-card">
+        <div class="rl">ดาวน์ไทม์ที่ยอมรับได้ต่อปี</div>
+        <div class="rv" id="uptimeOutYear" style="font-size:26px;">8 ชม. 45 นาที</div>
+      </div>
+      <div class="readout-card">
+        <div class="rl">ดาวน์ไทม์ที่ยอมรับได้ต่อเดือน</div>
+        <div class="rv" id="uptimeOutMonth" style="font-size:26px;">43 นาที 49 วิ</div>
+      </div>
+      <div class="readout-card">
+        <div class="rl">ดาวน์ไทม์ที่ยอมรับได้ต่อวัน</div>
+        <div class="rv" id="uptimeOutDay" style="font-size:26px;">1 นาที 26 วิ</div>
+      </div>
+      <div class="calc-note">
+        * คำนวณจาก Uptime × ระยะเวลาในแต่ละช่วง (ปี = 365.25 วัน) เป็นตัวเลขทางทฤษฎี ไม่รวมช่วง Maintenance ที่แจ้งล่วงหน้า
+      </div>
+      <a href="/contact" class="btn btn-primary calc-cta">ปรึกษาทีมงานเรื่อง SLA →</a>
+    </div>
+  </div>
+  </div>
+
+  <!-- ===== TAB 7: DR-SITE RTO/RPO ESTIMATOR ===== -->
+  <div class="calc-panel" data-panel="dr" hidden>
+  <div class="calc-shell hud">
+    <div class="calc-titlebar">
+      <span class="t">dr-site-estimator.exe — running</span>
+      <div class="calc-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="calc-inputs">
+      <div class="calc-h">ประเมินแผน DR-Site ที่เหมาะสม</div>
+      <p class="calc-p">กรอกขนาดข้อมูลและความต้องการ RTO/RPO เพื่อดูแผนที่แนะนำ</p>
+
+      <div class="field-row">
+        <div class="field">
+          <label>ขนาดข้อมูลที่ต้องสำรอง (GB)</label>
+          <input type="number" id="drDataSize" min="0" value="400">
+        </div>
+        <div class="field">
+          <label>จำนวน Source Server</label>
+          <input type="number" id="drServerCount" min="1" value="1">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>RTO ที่ต้องการ (ชม.) — ธุรกิจหยุดได้นานแค่ไหน</label>
+          <input type="number" id="drRto" min="0" value="4" step="0.5">
+        </div>
+        <div class="field">
+          <label>RPO ที่ต้องการ (ชม.) — ข้อมูลสูญเสียได้แค่ไหน</label>
+          <input type="number" id="drRpo" min="0" value="4" step="0.5">
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-outputs">
+      <div class="readout-card">
+        <div class="rl">แผนที่แนะนำ</div>
+        <div class="rv" id="drOutPlan">DR-2<span></span></div>
+        <div class="rd" id="drOutPlanDetail">Storage 500GB · รองรับ 1 Source Server</div>
+      </div>
+      <div class="calc-note" id="drOutWarning"></div>
+      <div class="calc-note">
+        * แผนพื้นฐานคำนวณจากขนาดข้อมูลและจำนวนเซิร์ฟเวอร์เท่านั้น ค่า RTO/RPO ที่เข้มงวดมากอาจต้องออกแบบ Replication เพิ่มเติม ทีมงานยินดีให้คำปรึกษาเชิงลึก
+      </div>
+      <a href="/contact" class="btn btn-primary calc-cta">ปรึกษาทีมงานเรื่อง DR-Site →</a>
+    </div>
+  </div>
+  </div>
+
+  <!-- ===== TAB 8: VPS SIZING ===== -->
+  <div class="calc-panel" data-panel="vps" hidden>
+  <div class="calc-shell hud">
+    <div class="calc-titlebar">
+      <span class="t">vps-sizing-calculator.exe — running</span>
+      <div class="calc-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="calc-inputs">
+      <div class="calc-h">แนะนำสเปก Cloud VPS ที่เหมาะสม</div>
+      <p class="calc-p">เลือกประเภทงานและจำนวนผู้ใช้งานพร้อมกัน เพื่อดู Plan ที่แนะนำ</p>
+
+      <div class="field">
+        <label>ประเภทเว็บไซต์ / งาน</label>
+        <div class="seg seg-wrap" id="vpsTypeSeg">
+          <button type="button" class="active" data-val="small">เว็บบริษัทขนาดเล็ก</button>
+          <button type="button" data-val="business">เว็บธุรกิจ / อีคอมเมิร์ซ</button>
+          <button type="button" data-val="internal">ระบบภายในองค์กร</button>
+          <button type="button" data-val="heavy">งานประมวลผลหนัก</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>จำนวนผู้ใช้งานพร้อมกัน (Concurrent Users)</label>
+        <input type="number" id="vpsUsers" min="1" value="100">
+      </div>
+    </div>
+
+    <div class="calc-outputs">
+      <div class="readout-card">
+        <div class="rl">Plan ที่แนะนำ</div>
+        <div class="rv" id="vpsOutPlan">S2<span></span></div>
+        <div class="rd" id="vpsOutPlanDetail">2 Core · 4GB RAM · 40GB SSD</div>
+      </div>
+      <div class="calc-note">
+        * เป็นการแนะนำเบื้องต้นสำหรับวางแผนงบประมาณ สเปกจริงควรประเมินร่วมกับทีมวิศวกรตามลักษณะงานเฉพาะ
+      </div>
+      <a href="/contact" class="btn btn-primary calc-cta">ปรึกษาทีมงานเรื่อง VPS →</a>
+    </div>
+  </div>
+  </div>
+
+  <!-- ===== TAB 9: TCO ON-PREM VS CLOUD ===== -->
+  <div class="calc-panel" data-panel="tco" hidden>
+  <div class="calc-shell hud">
+    <div class="calc-titlebar">
+      <span class="t">tco-comparison.exe — running</span>
+      <div class="calc-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="calc-inputs">
+      <div class="calc-h">เทียบต้นทุนรวม On-Premise vs Cloud</div>
+      <p class="calc-p">กรอกต้นทุนโดยประมาณเพื่อเทียบว่าซื้อเครื่องเองหรือเช่า Cloud คุ้มกว่ากันในระยะเวลาที่กำหนด</p>
+
+      <div class="field" style="border-top:1px solid var(--line);padding-top:14px;">
+        <label>On-Premise: ราคาเครื่อง Server (บาท, จ่ายครั้งเดียว)</label>
+        <input type="number" id="tcoServerCost" min="0" value="250000">
+      </div>
+      <div class="field">
+        <label>On-Premise: ค่าไฟ + ค่าดูแลระบบ/เดือน (บาท)</label>
+        <input type="number" id="tcoOpex" min="0" value="6000">
+      </div>
+      <div class="field" style="border-top:1px solid var(--line);padding-top:14px;">
+        <label>Cloud: ค่า VPS/เดือน (บาท)</label>
+        <input type="number" id="tcoCloudMonthly" min="0" value="8000">
+      </div>
+      <div class="field">
+        <label>ระยะเวลาเปรียบเทียบ (ปี)</label>
+        <input type="number" id="tcoYears" min="1" max="10" value="3">
+      </div>
+    </div>
+
+    <div class="calc-outputs">
+      <div class="readout-card">
+        <div class="rl">ต้นทุนรวม On-Premise</div>
+        <div class="rv" id="tcoOutOnPrem">466,000<span>บาท</span></div>
+      </div>
+      <div class="readout-card">
+        <div class="rl">ต้นทุนรวม Cloud</div>
+        <div class="rv" id="tcoOutCloud">288,000<span>บาท</span></div>
+      </div>
+      <div class="readout-card">
+        <div class="rl">สรุปผล</div>
+        <div class="rv" id="tcoOutResult" style="font-size:22px;">Cloud คุ้มกว่า</div>
+        <div class="rd" id="tcoOutResultDetail">ประหยัดกว่า 178,000 บาท ในช่วง 3 ปี</div>
+      </div>
+      <div class="calc-note">
+        * เป็นการประมาณเบื้องต้น ไม่รวมค่าเสื่อมราคา ภาษี หรือมูลค่าคงเหลือของอุปกรณ์เมื่อครบอายุใช้งาน
+      </div>
+      <a href="/contact" class="btn btn-primary calc-cta">ปรึกษาทีมงานเรื่อง TCO →</a>
+    </div>
+  </div>
+  </div>
+
 
 </section>
 <footer class="footer-dark">
@@ -1086,6 +1346,189 @@ function calcBandwidth(){
 }
 calcBandwidth();
 }
+
+// ---- RAID Storage Calculator ----
+if (document.getElementById('raidDiskCount')) {
+let raidType = '0';
+setupSeg('raidTypeSeg', (v) => { raidType = v; calcRaid(); });
+['raidDiskCount','raidDiskSize'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calcRaid);
+});
+function calcRaid(){
+  const n = Math.max(2, parseInt(document.getElementById('raidDiskCount').value) || 2);
+  const s = Math.max(0, parseFloat(document.getElementById('raidDiskSize').value) || 0);
+  const totalRaw = n * s;
+  let usable = 0, tolerance = 0, label = '';
+
+  if (raidType === '0') {
+    usable = n * s; tolerance = 0;
+    label = 'ไม่มี Redundancy — ดิสก์เสีย 1 ลูก ข้อมูลหายทั้งชุด';
+  } else if (raidType === '1') {
+    const pairs = Math.floor(n / 2);
+    usable = pairs * s; tolerance = pairs;
+    label = 'ข้อมูล Mirror กัน — เสียได้สูงสุด 1 ลูกต่อคู่ Mirror';
+  } else if (raidType === '5') {
+    usable = Math.max(0, n - 1) * s; tolerance = 1;
+    label = 'ใช้ Parity 1 ชุด — เสียได้ 1 ลูกโดยข้อมูลไม่หาย (ขั้นต่ำ 3 ลูก)';
+  } else if (raidType === '6') {
+    usable = Math.max(0, n - 2) * s; tolerance = 2;
+    label = 'ใช้ Parity 2 ชุด — เสียได้พร้อมกัน 2 ลูกโดยข้อมูลไม่หาย (ขั้นต่ำ 4 ลูก)';
+  } else if (raidType === '10') {
+    const pairs = Math.floor(n / 2);
+    usable = pairs * s; tolerance = pairs;
+    label = 'Stripe + Mirror — เสียได้สูงสุด 1 ลูกต่อคู่ Mirror (ขั้นต่ำ 4 ลูก)';
+  }
+
+  const overhead = totalRaw - usable;
+  const overheadPct = totalRaw > 0 ? (overhead / totalRaw * 100) : 0;
+
+  document.getElementById('raidOutUsable').innerHTML = usable.toFixed(1) + '<span>TB</span>';
+  document.getElementById('raidOutUsableDetail').textContent = 'จากพื้นที่รวม ' + totalRaw.toFixed(1) + 'TB';
+  document.getElementById('raidOutOverhead').innerHTML = overhead.toFixed(1) + '<span>TB</span>';
+  document.getElementById('raidOutOverheadDetail').textContent = 'คิดเป็น ' + overheadPct.toFixed(0) + '% ของพื้นที่รวม';
+  document.getElementById('raidOutTolerance').innerHTML = tolerance + '<span>ลูก</span>';
+  document.getElementById('raidOutToleranceDetail').textContent = label;
+}
+calcRaid();
+}
+
+// ---- Uptime / SLA Downtime Calculator ----
+if (document.getElementById('uptimeCustom')) {
+function formatDowntime(totalSeconds){
+  totalSeconds = Math.max(0, Math.round(totalSeconds));
+  const h = Math.floor(totalSeconds / 3600);
+  const m = Math.floor((totalSeconds % 3600) / 60);
+  const s = Math.floor(totalSeconds % 60);
+  if (h > 0) return h + ' ชม. ' + m + ' นาที';
+  if (m > 0) return m + ' นาที ' + s + ' วิ';
+  return s + ' วินาที';
+}
+function calcUptime(){
+  const pct = Math.min(100, Math.max(0, parseFloat(document.getElementById('uptimeCustom').value) || 0));
+  const downFraction = (100 - pct) / 100;
+  const secondsPerYear = 365.25 * 24 * 3600;
+  const downYear = downFraction * secondsPerYear;
+  const downMonth = downYear / 12;
+  const downDay = downFraction * 24 * 3600;
+
+  document.getElementById('uptimeOutYear').textContent = formatDowntime(downYear);
+  document.getElementById('uptimeOutMonth').textContent = formatDowntime(downMonth);
+  document.getElementById('uptimeOutDay').textContent = formatDowntime(downDay);
+}
+document.getElementById('uptimeCustom').addEventListener('input', () => {
+  document.querySelectorAll('#uptimePresetSeg button').forEach(b => b.classList.remove('active'));
+  calcUptime();
+});
+setupSeg('uptimePresetSeg', (v) => {
+  document.getElementById('uptimeCustom').value = v;
+  calcUptime();
+});
+calcUptime();
+}
+
+// ---- DR-Site RTO/RPO Estimator ----
+if (document.getElementById('drDataSize')) {
+const drPlans = [
+  { id: 'DR-1', storage: 200,  servers: 1 },
+  { id: 'DR-2', storage: 500,  servers: 1 },
+  { id: 'DR-3', storage: 1024, servers: 2 },
+  { id: 'DR-4', storage: 1536, servers: 3 },
+  { id: 'DR-5', storage: 2048, servers: 4 },
+];
+['drDataSize','drServerCount','drRto','drRpo'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calcDr);
+});
+function calcDr(){
+  const dataSize = Math.max(0, parseFloat(document.getElementById('drDataSize').value) || 0);
+  const serverCount = Math.max(1, parseInt(document.getElementById('drServerCount').value) || 1);
+  const rto = Math.max(0, parseFloat(document.getElementById('drRto').value) || 0);
+  const rpo = Math.max(0, parseFloat(document.getElementById('drRpo').value) || 0);
+
+  let plan = drPlans.find(p => p.storage >= dataSize && p.servers >= serverCount);
+  if (!plan) plan = drPlans[drPlans.length - 1];
+
+  document.getElementById('drOutPlan').innerHTML = plan.id + '<span></span>';
+  document.getElementById('drOutPlanDetail').textContent =
+    'Storage ' + (plan.storage >= 1024 ? (plan.storage/1024) + 'TB' : plan.storage + 'GB') +
+    ' · รองรับ ' + plan.servers + ' Source Server' + (plan.servers > 1 ? '' : '');
+
+  const warnEl = document.getElementById('drOutWarning');
+  if (!plan || plan.storage < dataSize || plan.servers < serverCount) {
+    warnEl.textContent = '⚠ ความต้องการเกินแผนสูงสุดที่มี ทีมงานสามารถออกแบบแผนกำหนดเองให้ได้';
+  } else if (rto < 1 || rpo < 1) {
+    warnEl.textContent = '⚠ RTO/RPO ต่ำกว่า 1 ชั่วโมง — ควรพิจารณา Real-time Replication เพิ่มเติมนอกเหนือจากแผนพื้นฐาน';
+  } else {
+    warnEl.textContent = '';
+  }
+}
+calcDr();
+}
+
+// ---- VPS Sizing Calculator ----
+if (document.getElementById('vpsUsers')) {
+const vpsPlans = [
+  { id: 'S1', cpu: 1, ram: '2GB',  ssd: '20GB' },
+  { id: 'S2', cpu: 2, ram: '4GB',  ssd: '40GB' },
+  { id: 'S3', cpu: 4, ram: '8GB',  ssd: '80GB' },
+  { id: 'S4', cpu: 4, ram: '12GB', ssd: '120GB' },
+  { id: 'S5', cpu: 6, ram: '16GB', ssd: '160GB' },
+];
+let vpsType = 'small';
+setupSeg('vpsTypeSeg', (v) => { vpsType = v; calcVps(); });
+document.getElementById('vpsUsers').addEventListener('input', calcVps);
+function calcVps(){
+  const users = Math.max(1, parseInt(document.getElementById('vpsUsers').value) || 1);
+  let tierIndex;
+  if (users < 50) tierIndex = 0;
+  else if (users < 150) tierIndex = 1;
+  else if (users < 400) tierIndex = 2;
+  else if (users < 800) tierIndex = 3;
+  else tierIndex = 4;
+
+  if (vpsType === 'heavy') tierIndex = Math.min(4, tierIndex + 1);
+
+  const plan = vpsPlans[tierIndex];
+  document.getElementById('vpsOutPlan').innerHTML = plan.id + '<span></span>';
+  document.getElementById('vpsOutPlanDetail').textContent =
+    plan.cpu + ' Core · ' + plan.ram + ' RAM · ' + plan.ssd + ' SSD';
+}
+calcVps();
+}
+
+// ---- TCO: On-Premise vs Cloud ----
+if (document.getElementById('tcoServerCost')) {
+['tcoServerCost','tcoOpex','tcoCloudMonthly','tcoYears'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calcTco);
+});
+function calcTco(){
+  const serverCost = Math.max(0, parseFloat(document.getElementById('tcoServerCost').value) || 0);
+  const opex = Math.max(0, parseFloat(document.getElementById('tcoOpex').value) || 0);
+  const cloudMonthly = Math.max(0, parseFloat(document.getElementById('tcoCloudMonthly').value) || 0);
+  const years = Math.max(1, parseFloat(document.getElementById('tcoYears').value) || 1);
+
+  const totalOnPrem = serverCost + (opex * 12 * years);
+  const totalCloud = cloudMonthly * 12 * years;
+  const diff = Math.abs(totalOnPrem - totalCloud);
+
+  document.getElementById('tcoOutOnPrem').innerHTML = Math.round(totalOnPrem).toLocaleString('en-US') + '<span>บาท</span>';
+  document.getElementById('tcoOutCloud').innerHTML = Math.round(totalCloud).toLocaleString('en-US') + '<span>บาท</span>';
+
+  const resultEl = document.getElementById('tcoOutResult');
+  const detailEl = document.getElementById('tcoOutResultDetail');
+  if (totalCloud < totalOnPrem) {
+    resultEl.textContent = 'Cloud คุ้มกว่า';
+    detailEl.textContent = 'ประหยัดกว่า ' + Math.round(diff).toLocaleString('en-US') + ' บาท ในช่วง ' + years + ' ปี';
+  } else if (totalOnPrem < totalCloud) {
+    resultEl.textContent = 'On-Premise คุ้มกว่า';
+    detailEl.textContent = 'ประหยัดกว่า ' + Math.round(diff).toLocaleString('en-US') + ' บาท ในช่วง ' + years + ' ปี';
+  } else {
+    resultEl.textContent = 'ต้นทุนใกล้เคียงกัน';
+    detailEl.textContent = 'ควรพิจารณาปัจจัยอื่น เช่น ความยืดหยุ่น และภาระงานดูแลระบบ';
+  }
+}
+calcTco();
+}
+
 
 </script>
 
