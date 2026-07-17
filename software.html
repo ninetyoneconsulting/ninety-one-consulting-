@@ -898,9 +898,9 @@ function calcBackup(){
 calcBackup();
 }
 
-// ---- Bandwidth Calculator ----
+// ---- Bandwidth Calculator (file transfer time only) ----
 if (document.getElementById('bwFileSize')) {
-['bwFileSize','bwFileUnit','bwSpeed','bwSpeedUnit','bwPageViews','bwPageSize','bwRedundancy'].forEach(id => {
+['bwFileSize','bwFileUnit','bwSpeed','bwSpeedUnit'].forEach(id => {
   document.getElementById(id).addEventListener('input', calcBandwidth);
 });
 function formatTime(seconds){
@@ -922,25 +922,6 @@ function calcBandwidth(){
 
   const seconds = fileSizeMb / speedMbps;
   document.getElementById('bwOutTime').innerHTML = formatTime(seconds) + '<span></span>';
-
-  const pageViews = Math.max(0, parseFloat(document.getElementById('bwPageViews').value) || 0);
-  const pageSizeMB = Math.max(0, parseFloat(document.getElementById('bwPageSize').value) || 0);
-  const redundancy = Math.max(1, parseFloat(document.getElementById('bwRedundancy').value) || 1);
-
-  const dailyMB = pageViews * pageSizeMB * redundancy;
-  const dailyMb = dailyMB * 8;
-  const requiredMbps = dailyMb / 86400;
-
-  document.getElementById('bwOutMbps').innerHTML = requiredMbps.toFixed(2) + '<span>Mbps</span>';
-
-  const monthlyMB = dailyMB * 30;
-  const monthlyGB = monthlyMB / 1024;
-  const monthlyTB = monthlyGB / 1024;
-  if(monthlyTB >= 1){
-    document.getElementById('bwOutMonthly').innerHTML = monthlyTB.toFixed(2) + '<span>TB</span>';
-  } else {
-    document.getElementById('bwOutMonthly').innerHTML = monthlyGB.toFixed(1) + '<span>GB</span>';
-  }
 }
 calcBandwidth();
 }
